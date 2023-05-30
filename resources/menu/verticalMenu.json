@@ -27,7 +27,7 @@
       "menuHeader": "Pemesanan"
     },
     {
-      "url": "/",
+      "url": "/langganan",
       "name": "Langganan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "pages-account-settings"
