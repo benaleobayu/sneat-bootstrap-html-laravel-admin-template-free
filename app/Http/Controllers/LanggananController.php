@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLanggananRequest;
 use App\Http\Requests\UpdateLanggananRequest;
+use App\Models\Day;
+use App\Models\Flower;
 use App\Models\Langganan;
+use App\Models\Regency;
+use Illuminate\Http\Request;
 
 class LanggananController extends Controller
 {
@@ -31,7 +35,7 @@ class LanggananController extends Controller
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('create', compact('flowers', 'regencies', 'days'));
+        return view('content.pemesanan.langganan.create', compact('flowers', 'regencies', 'days'));
     }
 
     public function store(Request $request)
@@ -56,6 +60,7 @@ class LanggananController extends Controller
         $langganan->regencies_id = $validatedData['regencies_id'];
         $langganan->day_id = $validatedData['day_id'];
         $langganan->notes = $validatedData['notes'];
+        $langganan->pic = auth()->user()->name;
         $langganan->save();
 
         $flowerData = [];
@@ -65,6 +70,7 @@ class LanggananController extends Controller
         $langganan->flowers()->sync($flowerData);
 
         // Redirect or do something else
+        return redirect('/langganan')->with('success', 'Data Langganan berhasil ditambahkan !');
     }
     public function show(Langganan $langganan)
     {
@@ -100,8 +106,11 @@ class LanggananController extends Controller
      * @param  \App\Models\Langganan  $langganan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Langganan $langganan)
+    public function destroy($id)
     {
-        //
+        Langganan::destroy($id);
+
+        return redirect('/langganan')->with('success', 'Data Langganan berhasil dihapus !');
+
     }
 }

@@ -1,0 +1,11 @@
+thead {
+    background-color: blue;
+}
+
+.table th{
+    color: white !important;
+}
+
+td {
+    vertical-align: top !important;
+}

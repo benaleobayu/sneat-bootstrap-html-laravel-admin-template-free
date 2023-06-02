@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('regencies_id');
             $table->unsignedBigInteger('day_id');
             $table->text('notes')->nullable();
+            $table->text('pic')->nullable();
             $table->timestamps();
 
             $table->foreign('regencies_id')->references('id')->on('regencies')->onDelete('cascade');
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->unsignedBigInteger('langganan_id');
             $table->unsignedBigInteger('flower_id');
             $table->integer('total')->unsigned();
+            $table->timestamps();
 
             $table->foreign('langganan_id')->references('id')->on('langganan')->onDelete('cascade');
             $table->foreign('flower_id')->references('id')->on('flowers')->onDelete('cascade');

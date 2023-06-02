@@ -25,7 +25,7 @@ class Langganan extends Model
         return $this->belongsTo(Day::class);
     }
 
-    public function regency():BelongsTo 
+    public function regencies():BelongsTo 
     {
         return $this->belongsTo(Regency::class);
     }
