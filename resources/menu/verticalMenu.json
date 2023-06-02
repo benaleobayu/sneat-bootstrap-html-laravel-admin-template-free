@@ -40,6 +40,33 @@
     },
     
     {
+      "menuHeader": "Settings"
+    },
+    {
+      "url" : "/admin",
+      "name": "Administrator",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "pages-account-settings"
+    }, 
+    {
+      "url" : "/roles",
+      "name": "Roles",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "pages-account-settings"
+    },
+    {
+      "url" : "/bunga",
+      "name": "List Flower",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "pages-account-settings"
+    },
+    {
+      "url" : "/daerah",
+      "name": "List Regencies",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "pages-account-settings"
+    },
+    {
       "menuHeader": "Pages"
     },
     {
