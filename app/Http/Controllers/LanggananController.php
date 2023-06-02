@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreLanggananRequest;
-use App\Http\Requests\UpdateLanggananRequest;
 use App\Models\Day;
 use App\Models\Flower;
 use App\Models\Langganan;
@@ -17,10 +15,20 @@ class LanggananController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('content.pemesanan.langganan.index',[
-            'data' => Langganan::all()
+        $search = $request->query('search');
+
+        if (!empty($search)) {
+            $query = Langganan::where('name', 'like', '%' . $search . '%')
+                ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+        } else {
+            $query = Langganan::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+        }
+        return view('content.pemesanan.langganan.index', [
+            'route' => 'langganan',
+            'data' => $query,
+            'search' => $search
         ]);
     }
 
@@ -72,45 +80,64 @@ class LanggananController extends Controller
         // Redirect or do something else
         return redirect('/langganan')->with('success', 'Data Langganan berhasil ditambahkan !');
     }
-    public function show(Langganan $langganan)
+    public function show($id)
     {
-        //
+        $data = Langganan::find($id);
+        $name = $data->name;
+        $flowers = Flower::all();
+        $regencies = Regency::all();
+        $days = Day::all();
+
+        return view('content.pemesanan.langganan.show', compact('data', 'name', 'flowers', 'regencies', 'days'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Langganan  $langganan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Langganan $langganan)
+    public function edit($id)
     {
-        //
+        $data = Langganan::find($id);
+        $name = $data->name;
+        $flowers = Flower::all();
+        $regencies = Regency::all();
+        $days = Day::all();
+
+        return view('content.pemesanan.langganan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateLanggananRequest  $request
-     * @param  \App\Models\Langganan  $langganan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateLanggananRequest $request, Langganan $langganan)
+    public function update(Request $request, $id)
     {
-        //
+        $langganan = Langganan::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'regencies_id' => 'required',
+            'day_id' => 'required',
+        ]);
+
+        $langganan->name = $request->name;
+        $langganan->phone = $request->phone;
+        $langganan->address = $request->address;
+        $langganan->regencies_id = $request->regencies_id;
+        $langganan->day_id = $request->day_id;
+        $langganan->notes = $request->notes;
+        $langganan->pic = auth()->user()->name;
+
+        $flowersData = [];
+        for ($i = 0; $i < count($request->flower_id); $i++) {
+            $flowersData[$request->flower_id[$i]] = ['total' => $request->total[$i]];
+        }
+        $langganan->flowers()->sync($flowersData);
+
+        $langganan->save();
+
+        // Redirect or do something else
+        return redirect('/langganan')->with('success', 'Data Langganan berhasil diubah !');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Langganan  $langganan
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         Langganan::destroy($id);
 
         return redirect('/langganan')->with('success', 'Data Langganan berhasil dihapus !');
-
     }
 }

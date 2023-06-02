@@ -22,12 +22,16 @@
                 </tr>
             </thead>
             <tbody>
+                @if (count($data) > 0)
+                @php
+                    $nomor = 1 + ($data->currentPage() - 1) * $data->perPage();
+                @endphp
                 @foreach ($data as $d)
                     @php
                         $flowersCount = $d->flowers->count();
                     @endphp
                     <tr>
-                        <td>{{ $d->id }}</td>
+                        <td>{{ $nomor++ }}</td>
                         <td>
                             @if ($flowersCount > 1)
                                 @for ($i = 0; $i < $flowersCount; $i++)
@@ -77,7 +81,16 @@
                         </td>
                     </tr>
                 @endforeach
+                @else
+                <tr>
+                    <td class="p-0">
+                        <h1 class="position-absolute top-50 start-50">No Results</h1>
+                    </td>
+                </tr>
+            @endif
             </tbody>
         </table>
     </div>
+
+{{ $data->links() }}
 @endsection
