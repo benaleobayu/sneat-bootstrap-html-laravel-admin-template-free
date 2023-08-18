@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFlowerRequest;
 use App\Http\Requests\UpdateFlowerRequest;
 use App\Models\Flower;
+use Illuminate\Http\Request;
 
 class FlowerController extends Controller
 {
@@ -13,64 +13,65 @@ class FlowerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request) 
     {
-        //
+        $search = $request->query('search');
+
+        if (!empty($search)) {
+            $query = Flower::where('name', 'like', '%' . $search . '%')
+                ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+        } else {
+            $query = Flower::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+        }
+        return view('content.pengaturan.flower.index', [
+            'route' => 'Bunga',
+            'data' => $query,
+            'search' => $search
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('content.pengaturan.flower.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreFlowerRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreFlowerRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'code' => 'required',
+            'name' => 'required',
+            'price' => 'required'
+        ]);
+
+        Flower::create($validatedData);
+
+        return redirect('/bunga')->with('success', 'Data Bunga berhasil ditambahkan !');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Flower  $flower
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Flower $flower)
+    public function edit(Flower $flower, $id)
     {
-        //
+        $data = Flower::find($id);
+        $code = $data->code;
+        $name = $data->name;
+        $price = $data->price;
+
+        return view('content.pengaturan.flower.edit', compact('data', 'code', 'name', 'price'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Flower  $flower
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Flower $flower)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $flower = Flower::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateFlowerRequest  $request
-     * @param  \App\Models\Flower  $flower
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateFlowerRequest $request, Flower $flower)
-    {
-        //
+        $validatedData = $request->validate([
+            'code' => 'required',
+            'name' => 'required',
+            'price' => 'required'
+        ]);
+
+        $flower->update($validatedData);
+
+        return redirect('/bunga')->with('success', 'Data Bunga berhasil diubah !');
+
     }
 
     /**
@@ -79,8 +80,10 @@ class FlowerController extends Controller
      * @param  \App\Models\Flower  $flower
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Flower $flower)
+    public function destroy($id)
     {
-        //
+        Flower::destroy($id);
+
+        return redirect('/bunga')->with('success', 'Data berhasil dihapus !');
     }
 }

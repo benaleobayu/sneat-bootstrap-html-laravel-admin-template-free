@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\LanggananController;
+use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +29,8 @@ Route::middleware('auth')->group( function () {
     /* Settings */
     Route::resource('/admin', UserController::class);
     Route::resource('/roles', RoleController::class);
+    Route::resource('/bunga', FlowerController::class);
+    Route::resource('/daerah', RegencyController::class);
     
     Route::get('/logout', [LoginController::class, 'logout']);
 });

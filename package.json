@@ -32,5 +32,13 @@
     "resolve-url-loader": "5.0.0",
     "sass": "^1.50.1",
     "sass-loader": "12.1.0"
-  }
+  },
+  "description": "<p align=\"center\"></p>",
+  "main": "webpack.mix.js",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
