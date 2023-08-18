@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreRegencyRequest;
 use App\Http\Requests\UpdateRegencyRequest;
 use App\Models\Regency;
+use Illuminate\Http\Request;
 
 class RegencyController extends Controller
 {
@@ -13,9 +13,21 @@ class RegencyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->query('search');
+
+        if (!empty($search)) {
+            $query = Regency::where('name', 'like', '%' . $search . '%')
+                ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+        } else {
+            $query = Regency::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+        }
+        return view('content.pengaturan.regency.index', [
+            'route' => 'Daerah',
+            'data' => $query,
+            'search' => $search
+        ]);
     }
 
     /**
@@ -25,62 +37,51 @@ class RegencyController extends Controller
      */
     public function create()
     {
-        //
+        return view('content.pengaturan.regency.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreRegencyRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreRegencyRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'city' => 'required'
+        ]);
+
+        Regency::create($validatedData);
+
+        return redirect('/daerah')->with('Success', 'Data telah ditambahkan !');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Regency  $regency
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Regency $regency)
+    public function edit($id)
     {
-        //
+        $data = Regency::find($id);
+        $name = $data->name;
+        $city = $data->city;
+
+        return view('content.pengaturan.regency.edit', compact('data','name','city'));
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Regency  $regency
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Regency $regency)
+ 
+    public function update(Request $request, $id)
     {
-        //
+        $regency = Regency::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'city' => 'required'
+        ]);
+
+        $regency->update($validatedData);
+
+        return redirect('/daerah')->with('Success', 'Data telah diubah !');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateRegencyRequest  $request
-     * @param  \App\Models\Regency  $regency
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateRegencyRequest $request, Regency $regency)
+    
+    public function destroy($id)
     {
-        //
-    }
+        Regency::destroy($id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Regency  $regency
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Regency $regency)
-    {
-        //
+        return redirect('/daerah')->with('Success', 'Data telah dihapus !');
     }
 }

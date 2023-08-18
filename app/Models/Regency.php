@@ -10,6 +10,8 @@ class Regency extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function langganan(): HasMany
     {
         return $this->hasMany(Langganan::class);
