@@ -40,10 +40,10 @@
     <!-- Search -->
     @can('index')
         <form action="/{{ $route }}" method="get">
-            <div class="navbar-nav align-items-center">
+            <div class="navbar-nav align-items-center ">
                 <div class="nav-item d-flex align-items-center">
                     <i class="bx bx-search fs-4 lh-0"></i>
-                    <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
+                    <input type="text" class="search-input form-control border shadow-none " placeholder="Search..."
                         aria-label="Search..." name="search" value="{{ $search }}">
                 </div>
             </div>

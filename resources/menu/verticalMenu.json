@@ -4,7 +4,8 @@
       "url": "/",
       "name": "Dashboard",
       "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "dashboard-analytics"
+      "slug": "dashboard-analytics",
+      "can" : "Read.Admin"
     },
     
     {
@@ -14,13 +15,13 @@
       "url": "/",
       "name": "Customers",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-account-settings"
+      "slug": "pages-customers"
     },
     {
       "url": "/",
       "name": "Riders",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-account-settings"
+      "slug": "pages-riders"
     },
     
     {
@@ -30,13 +31,13 @@
       "url": "/langganan",
       "name": "Langganan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-account-settings"
+      "slug": "pages-langganan"
     },
     {
       "url": "/",
       "name": "Pesanan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-account-settings"
+      "slug": "pages-pesanan"
     },
     
     {
@@ -46,25 +47,38 @@
       "url" : "/admin",
       "name": "Administrator",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-account-settings"
+      "slug": "admin",
+      "can" : "Read.Admin"
     }, 
     {
       "url" : "/roles",
       "name": "Roles",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-account-settings"
+      "slug": "roles"
+    },
+    {
+      "name": "Roles",
+      "icon": "menu-icon tf-icons bx bx-collection",
+      "slug": "setting-roles",
+      "url": "/setting/roles"
     },
     {
       "url" : "/bunga",
-      "name": "List Flower",
+      "name": "List Flowers",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-account-settings"
+      "slug": "pages-bunga"
     },
     {
       "url" : "/daerah",
       "name": "List Regencies",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-account-settings"
+      "slug": "pages-daerah"
+    },
+    {
+      "url" : "/hari",
+      "name": "List Days",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "pages-hari"
     },
     {
       "menuHeader": "Pages"

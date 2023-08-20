@@ -19,8 +19,6 @@ class PermissionSeeder extends Seeder
         DB::beginTransaction();
 
         try {
-            $permission = Permission::create(['name' => 'Access']);
-
             $permission = Permission::create(['name' => 'Read.Customers']);
             $permission = Permission::create(['name' => 'Create.Customers']);
             $permission = Permission::create(['name' => 'Edit.Customers']);

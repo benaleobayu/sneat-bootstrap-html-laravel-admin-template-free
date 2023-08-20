@@ -1,5 +1,9 @@
-import * as bootstrap from 'bootstrap'
 
+
+import * as bootstrap from 'bootstrap'
+import Swal from 'sweetalert2'
+
+window.Swal = Swal;
 // Extend Tooltip to add color options
 bootstrap.Tooltip.prototype.show = (original => {
   return function addTooltipColor() {

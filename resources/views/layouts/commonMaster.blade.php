@@ -32,6 +32,7 @@
 
   <!-- Include Scripts -->
   @include('layouts/sections/scripts')
+  
 
 </body>
 

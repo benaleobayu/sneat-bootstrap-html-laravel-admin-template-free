@@ -24,17 +24,12 @@ class RegencyController extends Controller
             $query = Regency::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         }
         return view('content.pengaturan.regency.index', [
-            'route' => 'Daerah',
+            'route' => 'daerah',
             'data' => $query,
             'search' => $search
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('content.pengaturan.regency.create');

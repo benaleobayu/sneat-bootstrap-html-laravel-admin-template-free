@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DayController;
 use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\LanggananController;
 use App\Http\Controllers\RegencyController;
@@ -29,8 +30,10 @@ Route::middleware('auth')->group( function () {
     /* Settings */
     Route::resource('/admin', UserController::class);
     Route::resource('/roles', RoleController::class);
+    Route::resource('/setting/roles', RoleController::class);
     Route::resource('/bunga', FlowerController::class);
     Route::resource('/daerah', RegencyController::class);
+    Route::resource('/hari', DayController::class);
     
     Route::get('/logout', [LoginController::class, 'logout']);
 });

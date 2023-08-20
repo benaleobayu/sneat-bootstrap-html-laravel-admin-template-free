@@ -1,11 +1,33 @@
 thead {
     background-color: blue;
+    color: white;
 }
 
 .table th{
     color: white !important;
 }
 
-td {
+td.td-order{
     vertical-align: top !important;
+}
+
+.tab-id {
+    width: 2vh;
+}
+
+.tab-act {
+    width: 15%;
+    text-align: center;
+}
+
+.tab-act-value{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+@media only screen and (min-width:1280px){
+    .search-input {
+        min-width: 50rem;
+    }
 }

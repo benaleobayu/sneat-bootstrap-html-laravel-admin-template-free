@@ -16,3 +16,14 @@
 <!-- BEGIN: Page JS-->
 @yield('page-script')
 <!-- END: Page JS-->
+
+@if (session('success'))
+  <script>
+      Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: '{{ session('success') }}',
+      });
+  </script>
+@endif
+<!-- Hehehe -->
