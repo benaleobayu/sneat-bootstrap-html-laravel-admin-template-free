@@ -4,10 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Traits\HasRoles;
 
 class UserSeeder extends Seeder
 {
@@ -55,5 +53,65 @@ class UserSeeder extends Seeder
         $user2->assignRole('Officer');
         $user3->assignRole('User');
         $admins->assignRole('Admin');
+
+            $admins->givePermissionTo('Read.Customers');
+            $admins->givePermissionTo('Create.Customers');
+            $admins->givePermissionTo('Edit.Customers');
+            $admins->givePermissionTo('Delete.Customers');
+
+            $admins->givePermissionTo('Read.Langganan');
+            $admins->givePermissionTo('Create.Langganan');
+            $admins->givePermissionTo('Edit.Langganan');
+            $admins->givePermissionTo('Delete.Langganan');
+
+            $admins->givePermissionTo('Read.DataRiders');
+            $admins->givePermissionTo('Create.DataRiders');
+            $admins->givePermissionTo('Edit.DataRiders');
+            $admins->givePermissionTo('Delete.DataRiders');
+            
+            $admins->givePermissionTo('Read.DataOrders');
+            $admins->givePermissionTo('Create.DataOrders');
+            $admins->givePermissionTo('Edit.DataOrders');
+            $admins->givePermissionTo('Delete.DataOrders');
+            
+            $admins->givePermissionTo('Read.PaymentRiders');
+            $admins->givePermissionTo('Create.PaymentRiders');
+            $admins->givePermissionTo('Edit.PaymentRiders');
+            $admins->givePermissionTo('Delete.PaymentRiders');
+            
+            $admins->givePermissionTo('Read.Invoice');
+            $admins->givePermissionTo('Create.Invoice');
+            $admins->givePermissionTo('Edit.Invoice');
+            $admins->givePermissionTo('Delete.Invoice');
+            
+            $admins->givePermissionTo('Read.Dokumentasi');
+            $admins->givePermissionTo('Create.Dokumentasi');
+            $admins->givePermissionTo('Edit.Dokumentasi');
+            $admins->givePermissionTo('Delete.Dokumentasi');
+
+            $admins->givePermissionTo('Read.Admin');
+            $admins->givePermissionTo('Create.Admin');
+            $admins->givePermissionTo('Edit.Admin');
+            $admins->givePermissionTo('Delete.Admin');
+
+            $admins->givePermissionTo('Read.Roles');
+            $admins->givePermissionTo('Create.Roles');
+            $admins->givePermissionTo('Edit.Roles');
+            $admins->givePermissionTo('Delete.Roles');
+
+            $admins->givePermissionTo('Read.Regency');
+            $admins->givePermissionTo('Create.Regency');
+            $admins->givePermissionTo('Edit.Regency');
+            $admins->givePermissionTo('Delete.Regency');
+
+            $admins->givePermissionTo('Read.Flower');
+            $admins->givePermissionTo('Create.Flower');
+            $admins->givePermissionTo('Edit.Flower');
+            $admins->givePermissionTo('Delete.Flower');
+
+            $admins->givePermissionTo('Read.Day');
+            $admins->givePermissionTo('Create.Day');
+            $admins->givePermissionTo('Edit.Day');
+            $admins->givePermissionTo('Delete.Day');
     }
 }

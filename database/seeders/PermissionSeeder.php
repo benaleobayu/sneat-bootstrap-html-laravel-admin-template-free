@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -73,6 +72,11 @@ class PermissionSeeder extends Seeder
             $permission = Permission::create(['name' => 'Create.Flower']);
             $permission = Permission::create(['name' => 'Edit.Flower']);
             $permission = Permission::create(['name' => 'Delete.Flower']);
+
+            $permission = Permission::create(['name' => 'Read.Day']);
+            $permission = Permission::create(['name' => 'Create.Day']);
+            $permission = Permission::create(['name' => 'Edit.Day']);
+            $permission = Permission::create(['name' => 'Delete.Day']);
 
             DB::commit();
         } catch (\Throwable $th) {

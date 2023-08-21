@@ -9,7 +9,8 @@
     },
     
     {
-      "menuHeader": "Data Center"
+      "menuHeader": "Data Center",
+      "can" : ""
     },
     {
       "url": "/",
@@ -41,7 +42,8 @@
     },
     
     {
-      "menuHeader": "Settings"
+      "menuHeader": "Settings",
+      "canany" : "Read.Admin"
     },
     {
       "url" : "/admin",
@@ -54,31 +56,29 @@
       "url" : "/roles",
       "name": "Roles",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "roles"
-    },
-    {
-      "name": "Roles",
-      "icon": "menu-icon tf-icons bx bx-collection",
-      "slug": "setting-roles",
-      "url": "/setting/roles"
+      "slug": "roles",
+      "can" : "Read.Roles"
     },
     {
       "url" : "/bunga",
       "name": "List Flowers",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-bunga"
+      "slug": "pages-bunga",
+      "can" : "Read.Flower"
     },
     {
       "url" : "/daerah",
       "name": "List Regencies",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-daerah"
+      "slug": "pages-daerah",
+      "can" : "Read.Regency"
     },
     {
       "url" : "/hari",
       "name": "List Days",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-hari"
+      "slug": "pages-hari",
+      "can" : "Read.Days"
     },
     {
       "menuHeader": "Pages"
