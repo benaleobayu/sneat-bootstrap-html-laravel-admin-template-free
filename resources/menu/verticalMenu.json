@@ -10,35 +10,54 @@
     
     {
       "menuHeader": "Data Center",
-      "can" : ""
+      "canany" : "Read.Customers"
     },
     {
-      "url": "/",
-      "name": "Customers",
+      "url": "/pelanggan",
+      "name": "Pelanggan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-customers"
-    },
-    {
-      "url": "/",
-      "name": "Riders",
-      "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-riders"
-    },
-    
-    {
-      "menuHeader": "Pemesanan"
+      "slug": "customers",
+      "can" : "Read.Customers"
     },
     {
       "url": "/langganan",
       "name": "Langganan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-langganan"
+      "slug": "langganan",
+      "can" : "Read.Langganan"
     },
     {
-      "url": "/",
+      "url": "/kurir",
+      "name": "Kurir",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "riders",
+      "can" : "Read.DataRiders"
+    },
+    
+    {
+      "menuHeader": "Pemesanan",
+      "canany" : "Read.Langganan"
+    },
+    {
+      "url": "/pesanan",
       "name": "Pesanan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-pesanan"
+      "slug": "pesanan",
+      "can" : "Read.DataOrders"
+    },
+    {
+      "url": "/invoice",
+      "name": "Inv Pelanggan",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "invoice",
+      "can" : "Read.Invoice"
+    },
+    {
+      "url": "/pembayaran",
+      "name": "Pembayaran Kurir",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "pembayaran",
+      "can" : "Read.PaymentRiders"
     },
     
     {
@@ -87,6 +106,7 @@
       "name": "Account Settings",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "pages-account-settings",
+      "can" : "Read.Admin",
       "submenu": [
         {
           "url": "/pages/account-settings-account",
