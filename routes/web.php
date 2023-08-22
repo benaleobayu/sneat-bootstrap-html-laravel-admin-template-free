@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DayController;
 use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\LanggananController;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -24,7 +25,13 @@ Route::middleware('auth')->group( function () {
     Route::get('/pages/misc-under-maintenance', $controller_path . '\pages\MiscUnderMaintenance@index')->name('pages-misc-under-maintenance');
 
     /* Pemesanan */
+    Route::resource('/pelanggan', PelangganController::class);
     Route::resource('/langganan', LanggananController::class);
+    Route::resource('/kurir', LanggananController::class);
+
+    Route::resource('/pesanan', LanggananController::class);
+    Route::resource('/invoice', LanggananController::class);
+    Route::resource('/pembayaran', LanggananController::class);
 
 
     /* Settings */

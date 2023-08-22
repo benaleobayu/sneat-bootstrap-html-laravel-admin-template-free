@@ -12,6 +12,10 @@ class Regency extends Model
 
     protected $guarded = ['id'];
 
+    public function pelanggan(): HasMany
+    {
+        return $this->hasMany(pelanggan::class);
+    }
     public function langganan(): HasMany
     {
         return $this->hasMany(Langganan::class);

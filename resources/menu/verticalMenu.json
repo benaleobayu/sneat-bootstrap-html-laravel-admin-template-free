@@ -4,7 +4,7 @@
       "url": "/",
       "name": "Dashboard",
       "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "dashboard-analytics",
+      "slug": ".index",
       "can" : "Read.Admin"
     },
     
@@ -16,21 +16,21 @@
       "url": "/pelanggan",
       "name": "Pelanggan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "customers",
+      "slug": "pelanggan.index",
       "can" : "Read.Customers"
     },
     {
       "url": "/langganan",
       "name": "Langganan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "langganan",
+      "slug": "langganan.index",
       "can" : "Read.Langganan"
     },
     {
       "url": "/kurir",
       "name": "Kurir",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "riders",
+      "slug": "kurir.index",
       "can" : "Read.DataRiders"
     },
     
@@ -42,21 +42,21 @@
       "url": "/pesanan",
       "name": "Pesanan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pesanan",
+      "slug": "pesanan.index",
       "can" : "Read.DataOrders"
     },
     {
       "url": "/invoice",
       "name": "Inv Pelanggan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "invoice",
+      "slug": "invoice.index",
       "can" : "Read.Invoice"
     },
     {
       "url": "/pembayaran",
       "name": "Pembayaran Kurir",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pembayaran",
+      "slug": "pembayaran.index",
       "can" : "Read.PaymentRiders"
     },
     
@@ -68,35 +68,35 @@
       "url" : "/admin",
       "name": "Administrator",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "admin",
+      "slug": "admin.index",
       "can" : "Read.Admin"
     }, 
     {
       "url" : "/roles",
       "name": "Roles",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "roles",
+      "slug": "roles.index",
       "can" : "Read.Roles"
     },
     {
       "url" : "/bunga",
       "name": "List Flowers",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-bunga",
+      "slug": "bunga.index",
       "can" : "Read.Flower"
     },
     {
       "url" : "/daerah",
       "name": "List Regencies",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-daerah",
+      "slug": "daerah.index",
       "can" : "Read.Regency"
     },
     {
       "url" : "/hari",
       "name": "List Days",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
-      "slug": "pages-hari",
+      "slug": "hari.index",
       "can" : "Read.Days"
     },
     {

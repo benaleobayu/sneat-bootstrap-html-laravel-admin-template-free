@@ -25,7 +25,7 @@ class LanggananController extends Controller
         } else {
             $query = Langganan::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         }
-        return view('content.pemesanan.langganan.index', [
+        return view('content.dataCenter.langganan.index', [
             'route' => 'langganan',
             'data' => $query,
             'search' => $search
@@ -43,7 +43,7 @@ class LanggananController extends Controller
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.pemesanan.langganan.create', compact('flowers', 'regencies', 'days'));
+        return view('content.dataCenter.langganan.create', compact('flowers', 'regencies', 'days'));
     }
 
     public function store(Request $request)
@@ -88,7 +88,7 @@ class LanggananController extends Controller
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.pemesanan.langganan.show', compact('data', 'name', 'flowers', 'regencies', 'days'));
+        return view('content.dataCenter.langganan.show', compact('data', 'name', 'flowers', 'regencies', 'days'));
     }
 
     public function edit($id)
@@ -99,7 +99,7 @@ class LanggananController extends Controller
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.pemesanan.langganan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'));
+        return view('content.dataCenter.langganan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'));
     }
 
     public function update(Request $request, $id)
