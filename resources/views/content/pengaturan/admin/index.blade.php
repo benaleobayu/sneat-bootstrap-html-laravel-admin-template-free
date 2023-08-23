@@ -48,7 +48,9 @@
                                 {{-- <form action="/admin/{{ $d->id }}" method="post">
                                     @csrf
                                     @method('DELETE') --}}
-                                    <button class="badge rounded bg-danger delete-btn" data-id="{{ $d->id }}"><i class='bx bx-trash'></i></button>
+                                    <div class="shadow" data-id="{{ $d->id }}">
+                                    <button class="badge rounded bg-danger delete-btn" ><i class="fa-solid fa-trash"></i></button>
+                                    </div>
                                 {{-- </form> --}}
                             </td>
                         </tr>
@@ -66,55 +68,8 @@
 
     {{ $data->links() }}
 
-
-    <script>
-        // Menangani klik pada tombol hapus
-        document.addEventListener('click', function (e) {
-            if (e.target.classList.contains('delete-btn')) {
-                const entityId = e.target.getAttribute('data-id');
-    
-                Swal.fire({
-                    title: 'Konfirmasi',
-                    text: 'Apakah Anda yakin ingin menghapus items ini?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Ya, Hapus!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Jika pengguna mengonfirmasi penghapusan, kirimkan permintaan penghapusan ke server
-                        // Gantilah 'your-delete-endpoint' dengan endpoint penghapusan yang sesuai
-                        fetch(`/admin/${entityId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            }
-                        }).then(response => {
-                            if (response.ok) {
-                                // Jika penghapusan berhasil, tampilkan pesan sukses
-                                Swal.fire(
-                                    'Terhapus!',
-                                    'Item telah dihapus.',
-                                    'success'
-                                ).then(() => {
-                                    // Jika penghapusan berhasil, perbarui tampilan atau lakukan tindakan lain yang sesuai
-                                    window.location.reload(); // Ini akan memuat ulang halaman
-                                });
-                            } else {
-                                // Jika penghapusan gagal, tampilkan pesan kesalahan
-                                Swal.fire(
-                                    'Gagal!',
-                                    'Terjadi kesalahan saat menghapus item.',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    </script>
-    
     @endsection
+
+    @push('delete')
+        <script type="text/javascript" src="{{ URL::asset ('/assets/_stacks/delete.js') }}"></script>
+    @endpush

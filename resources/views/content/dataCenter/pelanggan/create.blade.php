@@ -3,7 +3,6 @@
 @section('title', 'Tambah ' . $route)
 
 @section('content')
-    <!-- create.blade.php -->
     <div class="container">
         <form method="POST" action="{{ route('pelanggan.store') }}">
             @csrf

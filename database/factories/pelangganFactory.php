@@ -4,16 +4,13 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\pelanggan>
- */
-class PelangganFactory extends Factory
+
+// @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\pelanggan>;
+
+class pelangganFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    // protected $model = pelangganFactory::class;
+
     public function definition()
     {
         return [

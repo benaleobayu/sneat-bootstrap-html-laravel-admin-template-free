@@ -18,11 +18,15 @@ class PelangganController extends Controller
         $search = $request->query('search');
 
         if (!empty($search)) {
-            $query = pelanggan::where('name', 'like', '%' . $search . '%')
-                ->orWhere('address', 'like', '%' . $search . '%')
-                ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+            $query = pelanggan::where('type', 'p')
+            ->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('address', 'like', '%' . $search . '%');
+            })
+            ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         } else {
-            $query = pelanggan::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+        $query = pelanggan::where('type', 'p')
+            ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         }
         return view('content.dataCenter.pelanggan.index', [
             'route'         => $this->route,
@@ -33,7 +37,7 @@ class PelangganController extends Controller
 
     public function create()
     {
-        $regencies = Regency::all();
+        $regencies = Regency::orderBy('name', 'asc')->get();
 
         return view('content.dataCenter.pelanggan.create', [
             'route'         => $this->route,
@@ -41,59 +45,66 @@ class PelangganController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorepelangganRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorepelangganRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'phone' => 'max:15',
+            'address' => 'required',
+            'regencies_id' => 'required'
+        ]);
+        $validatedData['notes'] = $request->notes;
+        $validatedData['type'] = 'p';
+
+        pelanggan::create($validatedData);
+
+        return redirect('/pelanggan')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\pelanggan  $pelanggan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(pelanggan $pelanggan)
+    public function show($id)
     {
-        //
+        $data = pelanggan::find($id);
+
+        return view('content.dataCenter.pelanggan.show', [
+            'route'         => $this->route,
+            'data'     => $data
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\pelanggan  $pelanggan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(pelanggan $pelanggan)
+    public function edit($id)
     {
-        //
+
+        $data = pelanggan::find($id);
+
+        $regencies = Regency::orderBy('name', 'asc')->get();
+
+        return view('content.dataCenter.pelanggan.edit', [
+            'route'         => $this->route,
+            'data'     => $data,
+            'regencies'     => $regencies
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatepelangganRequest  $request
-     * @param  \App\Models\pelanggan  $pelanggan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatepelangganRequest $request, pelanggan $pelanggan)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'phone' => 'max:15',
+            'address' => 'required',
+            'regencies_id' => 'required'
+        ]);
+        $validatedData['notes'] = $request->notes;
+        $validatedData['type'] = 'p';
+
+        pelanggan::where('id', $id)->update($validatedData);
+
+        return redirect('/pelanggan')->with('success', 'Data berhasil diubah!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\pelanggan  $pelanggan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(pelanggan $pelanggan)
+    public function destroy($id)
     {
-        //
+        pelanggan::destroy($id);
+
+        // return redirect('/pelanggan')->with('success', 'Data berhasil dihapus!');
     }
 }
