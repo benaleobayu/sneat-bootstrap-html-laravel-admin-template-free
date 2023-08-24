@@ -8,6 +8,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,11 @@ Route::middleware('auth')->group( function () {
     Route::get('/pages/account-settings-connections', $controller_path . '\pages\AccountSettingsConnections@index')->name('pages-account-settings-connections');
     Route::get('/pages/misc-error', $controller_path . '\pages\MiscError@index')->name('pages-misc-error');
     Route::get('/pages/misc-under-maintenance', $controller_path . '\pages\MiscUnderMaintenance@index')->name('pages-misc-under-maintenance');
+
+    Route::get('/myprofile', function() {
+        $user = auth()->user();
+        return view('content.pengaturan.admin.edit',compact('user'));
+    });
 
     /* Pemesanan */
     Route::resource('/pelanggan', PelangganController::class);
