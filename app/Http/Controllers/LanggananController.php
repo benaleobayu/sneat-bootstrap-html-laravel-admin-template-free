@@ -138,6 +138,6 @@ class LanggananController extends Controller
     {
         Langganan::destroy($id);
 
-        return redirect('/langganan')->with('success', 'Data Langganan berhasil dihapus !');
+        // return redirect('/langganan')->with('success', 'Data Langganan berhasil dihapus !');
     }
 }

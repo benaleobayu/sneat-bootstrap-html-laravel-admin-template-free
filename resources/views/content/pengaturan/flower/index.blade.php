@@ -3,9 +3,12 @@
 @section('title', 'Daftar Bunga')
 
 @section('content')
-    <div class="top-addon">
-        <button class="btn btn-success" onclick="window.location='/bunga/create'">Create</button>
+<div class="d-flex">
+    <div class="top-addon ms-auto">
+        <button class="btn btn-primary" onclick="window.location='/{{ $route }}'"><i class='bx bx-refresh'></i></button>
+        <button class="btn btn-success" onclick="window.location='/{{ $route }}/create'">Create</button>
     </div>
+</div>
 
     <div class="table mt-3">
         <table class="fluid-table w-100" cellpadding="10" cellspacing=0 border=1>
@@ -30,14 +33,8 @@
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->price }}</td>
                             <td>
-                                <button class="badge rounded bg-primary"
-                                    onclick="window.location='/bunga/{{ $d->id }}/edit'"><i
-                                        class='bx bx-edit'></i></button>
-                                <form class="d-inline" action="/bunga/{{ $d->id }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="badge rounded bg-danger"><i class='bx bx-trash'></i></button>
-                                </form>
+                                <button class="badge rounded bg-primary" onclick="window.location='/{{ $route }}/{{ $d->id }}/edit'"><i class='bx bx-edit'></i></button>
+                                <button class="badge rounded bg-danger delete-btn" data-id="/{{ $route }}/{{ $d->id }}" ><i class="bx bx-trash delete-btn" data-id="/{{ $route }}/{{ $d->id }}"></i></button>
                             </td>
                         </tr>
                     @endforeach
@@ -54,3 +51,7 @@
 
     {{ $data->links() }}
 @endsection
+
+@push('delete')
+<script type="text/javascript" src="{{ URL::asset ('/assets/_stacks/delete.js') }}"></script>
+@endpush

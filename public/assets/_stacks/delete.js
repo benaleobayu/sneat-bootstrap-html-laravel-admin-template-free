@@ -2,6 +2,7 @@
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('delete-btn')) {
                 const entityId = e.target.getAttribute('data-id');
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
                 Swal.fire({
                     title: 'Konfirmasi',
@@ -14,10 +15,11 @@
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        fetch(`/admin/${entityId}`, {
+                        fetch(`${entityId}`, {
                             method: 'DELETE',
                             headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                               
+                                'X-CSRF-TOKEN': csrfToken
                             }
                         }).then(response => {
                             if (response.ok) {

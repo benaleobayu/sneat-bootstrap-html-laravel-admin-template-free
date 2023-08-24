@@ -54,30 +54,30 @@ class UserSeeder extends Seeder
         $user3->assignRole('User');
         $admins->assignRole('Admin');
 
-            $admins->givePermissionTo('Read.Customers');
-            $admins->givePermissionTo('Create.Customers');
-            $admins->givePermissionTo('Edit.Customers');
-            $admins->givePermissionTo('Delete.Customers');
+            $admins->givePermissionTo('Read.Pelanggan');
+            $admins->givePermissionTo('Create.Pelanggan');
+            $admins->givePermissionTo('Edit.Pelanggan');
+            $admins->givePermissionTo('Delete.Pelanggan');
 
             $admins->givePermissionTo('Read.Langganan');
             $admins->givePermissionTo('Create.Langganan');
             $admins->givePermissionTo('Edit.Langganan');
             $admins->givePermissionTo('Delete.Langganan');
 
-            $admins->givePermissionTo('Read.DataRiders');
-            $admins->givePermissionTo('Create.DataRiders');
-            $admins->givePermissionTo('Edit.DataRiders');
-            $admins->givePermissionTo('Delete.DataRiders');
+            $admins->givePermissionTo('Read.Kurir');
+            $admins->givePermissionTo('Create.Kurir');
+            $admins->givePermissionTo('Edit.Kurir');
+            $admins->givePermissionTo('Delete.Kurir');
             
-            $admins->givePermissionTo('Read.DataOrders');
-            $admins->givePermissionTo('Create.DataOrders');
-            $admins->givePermissionTo('Edit.DataOrders');
-            $admins->givePermissionTo('Delete.DataOrders');
+            $admins->givePermissionTo('Read.Pesanan');
+            $admins->givePermissionTo('Create.Pesanan');
+            $admins->givePermissionTo('Edit.Pesanan');
+            $admins->givePermissionTo('Delete.Pesanan');
             
-            $admins->givePermissionTo('Read.PaymentRiders');
-            $admins->givePermissionTo('Create.PaymentRiders');
-            $admins->givePermissionTo('Edit.PaymentRiders');
-            $admins->givePermissionTo('Delete.PaymentRiders');
+            $admins->givePermissionTo('Read.Pembayaran');
+            $admins->givePermissionTo('Create.Pembayaran');
+            $admins->givePermissionTo('Edit.Pembayaran');
+            $admins->givePermissionTo('Delete.Pembayaran');
             
             $admins->givePermissionTo('Read.Invoice');
             $admins->givePermissionTo('Create.Invoice');
@@ -99,19 +99,19 @@ class UserSeeder extends Seeder
             $admins->givePermissionTo('Edit.Roles');
             $admins->givePermissionTo('Delete.Roles');
 
-            $admins->givePermissionTo('Read.Regency');
-            $admins->givePermissionTo('Create.Regency');
-            $admins->givePermissionTo('Edit.Regency');
-            $admins->givePermissionTo('Delete.Regency');
+            $admins->givePermissionTo('Read.Daerah');
+            $admins->givePermissionTo('Create.Daerah');
+            $admins->givePermissionTo('Edit.Daerah');
+            $admins->givePermissionTo('Delete.Daerah');
 
-            $admins->givePermissionTo('Read.Flower');
-            $admins->givePermissionTo('Create.Flower');
-            $admins->givePermissionTo('Edit.Flower');
-            $admins->givePermissionTo('Delete.Flower');
+            $admins->givePermissionTo('Read.Bunga');
+            $admins->givePermissionTo('Create.Bunga');
+            $admins->givePermissionTo('Edit.Bunga');
+            $admins->givePermissionTo('Delete.Bunga');
 
-            $admins->givePermissionTo('Read.Day');
-            $admins->givePermissionTo('Create.Day');
-            $admins->givePermissionTo('Edit.Day');
-            $admins->givePermissionTo('Delete.Day');
+            $admins->givePermissionTo('Read.Hari');
+            $admins->givePermissionTo('Create.Hari');
+            $admins->givePermissionTo('Edit.Hari');
+            $admins->givePermissionTo('Delete.Hari');
     }
 }

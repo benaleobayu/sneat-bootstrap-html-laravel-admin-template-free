@@ -30,17 +30,9 @@
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->updated_at }}</td>
                             <td class="text-center">
-                                <button class="badge rounded bg-secondary"
-                                    onclick="window.location='/{{ $route }}/{{ $d->id }}'"><i
-                                        class='bx bx-show'></i></button>
-                                <button class="badge rounded bg-primary"
-                                    onclick="window.location='/{{ $route }}/{{ $d->id }}/edit'"><i
-                                        class='bx bx-edit'></i></button>
-                                <form class="d-inline" action="/{{ $route }}/{{ $d->id }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="badge rounded bg-danger"><i class='bx bx-trash'></i></button>
-                                </form>
+                                <button class="badge rounded bg-primary" onclick="window.location='/{{ $route }}/{{ $d->id }}/edit'"><i class='bx bx-edit'></i></button>
+                                <button class="badge rounded bg-danger delete-btn" data-id="/{{ $route }}/{{ $d->id }}" ><i class="bx bx-trash delete-btn" data-id="/{{ $route }}/{{ $d->id }}"></i></button>
+                            </td>
                             </td>
                         </tr>
                     @endforeach
@@ -57,3 +49,7 @@
 
     {{ $data->links() }}
 @endsection
+
+@push('delete')
+<script type="text/javascript" src="{{ URL::asset ('/assets/_stacks/delete.js') }}"></script>
+@endpush

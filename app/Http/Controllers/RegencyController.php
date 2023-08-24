@@ -77,6 +77,5 @@ class RegencyController extends Controller
     {
         Regency::destroy($id);
 
-        return redirect('/daerah')->with('Success', 'Data telah dihapus !');
     }
 }

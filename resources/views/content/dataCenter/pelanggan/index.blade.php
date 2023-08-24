@@ -35,13 +35,9 @@
                         <td class="td-order">{{ $d->address }} <br> / {{ $d->regencies->name }}</td>
                         <td class="td-order">{{ $d->notes }}</td>
                         <td class="tab-act-value d-flex flex-nowrap">
-                            <button class="badge rounded bg-secondary"
-                                onclick="window.location='/{{ $route }}/{{ $d->id }}'"><i
-                                    class='bx bx-show'></i></button>
-                            <button class="badge rounded bg-primary"
-                                onclick="window.location='/{{ $route }}/{{ $d->id }}/edit'"><i
-                                    class='bx bx-edit'></i></button>
-                                <button class="badge rounded bg-danger delete-btn" data-id="{{ $d->id }}"><i class='bx bx-trash'></i></button>
+                            <button class="badge rounded bg-secondary" onclick="window.location='/{{ $route }}/{{ $d->id }}'"><i class='bx bx-show'></i></button>
+                            <button class="badge rounded bg-primary" onclick="window.location='/{{ $route }}/{{ $d->id }}/edit'"><i class='bx bx-edit'></i></button>
+                            <button class="badge rounded bg-danger delete-btn" data-id="/{{ $route }}/{{ $d->id }}"><i class="bx bx-trash delete-btn" data-id="/{{ $route }}/{{ $d->id }}"></i></button>
                         </td>
                     </tr>
                 @endforeach

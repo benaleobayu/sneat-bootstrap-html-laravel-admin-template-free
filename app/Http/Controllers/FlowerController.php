@@ -24,7 +24,7 @@ class FlowerController extends Controller
             $query = Flower::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         }
         return view('content.pengaturan.flower.index', [
-            'route' => 'Bunga',
+            'route' => 'bunga',
             'data' => $query,
             'search' => $search
         ]);
@@ -84,6 +84,5 @@ class FlowerController extends Controller
     {
         Flower::destroy($id);
 
-        return redirect('/bunga')->with('success', 'Data berhasil dihapus !');
     }
 }

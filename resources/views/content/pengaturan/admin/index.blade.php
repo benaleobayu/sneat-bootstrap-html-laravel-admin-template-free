@@ -5,8 +5,7 @@
 @section('content')
     <div class="d-flex">
         <div class="top-addon ms-auto">
-            <button class="btn btn-primary" onclick="window.location='/{{ $route }}'"><i
-                    class='bx bx-refresh'></i></button>
+            <button class="btn btn-primary" onclick="window.location='/{{ $route }}'"><i class='bx bx-refresh'></i></button>
             <button class="btn btn-success" onclick="window.location='/{{ $route }}/create'">Create</button>
         </div>
     </div>
@@ -39,19 +38,9 @@
                                 </td>
                             @endforeach
                             <td class="tab-act-value">
-                                <button class="badge rounded bg-secondary"
-                                    onclick="window.location='/admin/{{ $d->id }}'"><i
-                                        class='bx bx-show'></i></button>
-                                <button class="badge rounded bg-primary"
-                                    onclick="window.location='/admin/{{ $d->id }}/edit'"><i
-                                        class='bx bx-edit'></i></button>
-                                {{-- <form action="/admin/{{ $d->id }}" method="post">
-                                    @csrf
-                                    @method('DELETE') --}}
-                                    <div class="shadow" data-id="{{ $d->id }}">
-                                    <button class="badge rounded bg-danger delete-btn" ><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                {{-- </form> --}}
+                                <button class="badge rounded bg-secondary" onclick="window.location='/{{ $route }}/{{ $d->id }}'"><i class='bx bx-show'></i></button>
+                                <button class="badge rounded bg-primary" onclick="window.location='/{{ $route }}/{{ $d->id }}/edit'"><i class='bx bx-edit'></i></button>
+                                <button class="badge rounded bg-danger delete-btn" data-id="/{{ $route }}/{{ $d->id }}" ><i class="bx bx-trash delete-btn" data-id="/{{ $route }}/{{ $d->id }}"></i></button>
                             </td>
                         </tr>
                     @endforeach

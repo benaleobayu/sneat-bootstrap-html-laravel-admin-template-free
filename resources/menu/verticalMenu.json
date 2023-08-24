@@ -10,14 +10,14 @@
     
     {
       "menuHeader": "Data Center",
-      "canany" : "Read.Customers"
+      "canany" : "Read.Pelanggan"
     },
     {
       "url": "/pelanggan",
       "name": "Pelanggan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "pelanggan.index",
-      "can" : "Read.Customers"
+      "can" : "Read.Pelanggan"
     },
     {
       "url": "/langganan",
@@ -31,7 +31,7 @@
       "name": "Kurir",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "kurir.index",
-      "can" : "Read.DataRiders"
+      "can" : "Read.Kurir"
     },
     
     {
@@ -43,7 +43,7 @@
       "name": "Pesanan",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "pesanan.index",
-      "can" : "Read.DataOrders"
+      "can" : "Read.Pesanan"
     },
     {
       "url": "/invoice",
@@ -57,7 +57,7 @@
       "name": "Pembayaran Kurir",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "pembayaran.index",
-      "can" : "Read.PaymentRiders"
+      "can" : "Read.Pembayaran"
     },
     
     {
@@ -83,21 +83,21 @@
       "name": "List Flowers",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "bunga.index",
-      "can" : "Read.Flower"
+      "can" : "Read.Bunga"
     },
     {
       "url" : "/daerah",
       "name": "List Regencies",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "daerah.index",
-      "can" : "Read.Regency"
+      "can" : "Read.Daerah"
     },
     {
       "url" : "/hari",
       "name": "List Days",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "hari.index",
-      "can" : "Read.Days"
+      "can" : "Read.Hari"
     },
     {
       "menuHeader": "Pages"

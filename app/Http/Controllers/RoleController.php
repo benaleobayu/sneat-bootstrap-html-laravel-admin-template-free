@@ -91,6 +91,5 @@ class RoleController extends Controller
     {
         Role::destroy($id);
 
-        return redirect('/roles')->with('success', 'Data berhasil dihapus !');
     }
 }

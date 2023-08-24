@@ -18,30 +18,30 @@ class PermissionSeeder extends Seeder
         DB::beginTransaction();
 
         try {
-            $permission = Permission::create(['name' => 'Read.Customers']);
-            $permission = Permission::create(['name' => 'Create.Customers']);
-            $permission = Permission::create(['name' => 'Edit.Customers']);
-            $permission = Permission::create(['name' => 'Delete.Customers']);
+            $permission = Permission::create(['name' => 'Read.Pelanggan']);
+            $permission = Permission::create(['name' => 'Create.Pelanggan']);
+            $permission = Permission::create(['name' => 'Edit.Pelanggan']);
+            $permission = Permission::create(['name' => 'Delete.Pelanggan']);
 
             $permission = Permission::create(['name' => 'Read.Langganan']);
             $permission = Permission::create(['name' => 'Create.Langganan']);
             $permission = Permission::create(['name' => 'Edit.Langganan']);
             $permission = Permission::create(['name' => 'Delete.Langganan']);
 
-            $permission = Permission::create(['name' => 'Read.DataRiders']);
-            $permission = Permission::create(['name' => 'Create.DataRiders']);
-            $permission = Permission::create(['name' => 'Edit.DataRiders']);
-            $permission = Permission::create(['name' => 'Delete.DataRiders']);
+            $permission = Permission::create(['name' => 'Read.Kurir']);
+            $permission = Permission::create(['name' => 'Create.Kurir']);
+            $permission = Permission::create(['name' => 'Edit.Kurir']);
+            $permission = Permission::create(['name' => 'Delete.Kurir']);
             
-            $permission = Permission::create(['name' => 'Read.DataOrders']);
-            $permission = Permission::create(['name' => 'Create.DataOrders']);
-            $permission = Permission::create(['name' => 'Edit.DataOrders']);
-            $permission = Permission::create(['name' => 'Delete.DataOrders']);
+            $permission = Permission::create(['name' => 'Read.Pesanan']);
+            $permission = Permission::create(['name' => 'Create.Pesanan']);
+            $permission = Permission::create(['name' => 'Edit.Pesanan']);
+            $permission = Permission::create(['name' => 'Delete.Pesanan']);
             
-            $permission = Permission::create(['name' => 'Read.PaymentRiders']);
-            $permission = Permission::create(['name' => 'Create.PaymentRiders']);
-            $permission = Permission::create(['name' => 'Edit.PaymentRiders']);
-            $permission = Permission::create(['name' => 'Delete.PaymentRiders']);
+            $permission = Permission::create(['name' => 'Read.Pembayaran']);
+            $permission = Permission::create(['name' => 'Create.Pembayaran']);
+            $permission = Permission::create(['name' => 'Edit.Pembayaran']);
+            $permission = Permission::create(['name' => 'Delete.Pembayaran']);
             
             $permission = Permission::create(['name' => 'Read.Invoice']);
             $permission = Permission::create(['name' => 'Create.Invoice']);
@@ -63,20 +63,20 @@ class PermissionSeeder extends Seeder
             $permission = Permission::create(['name' => 'Edit.Roles']);
             $permission = Permission::create(['name' => 'Delete.Roles']);
 
-            $permission = Permission::create(['name' => 'Read.Regency']);
-            $permission = Permission::create(['name' => 'Create.Regency']);
-            $permission = Permission::create(['name' => 'Edit.Regency']);
-            $permission = Permission::create(['name' => 'Delete.Regency']);
+            $permission = Permission::create(['name' => 'Read.Daerah']);
+            $permission = Permission::create(['name' => 'Create.Daerah']);
+            $permission = Permission::create(['name' => 'Edit.Daerah']);
+            $permission = Permission::create(['name' => 'Delete.Daerah']);
 
-            $permission = Permission::create(['name' => 'Read.Flower']);
-            $permission = Permission::create(['name' => 'Create.Flower']);
-            $permission = Permission::create(['name' => 'Edit.Flower']);
-            $permission = Permission::create(['name' => 'Delete.Flower']);
+            $permission = Permission::create(['name' => 'Read.Bunga']);
+            $permission = Permission::create(['name' => 'Create.Bunga']);
+            $permission = Permission::create(['name' => 'Edit.Bunga']);
+            $permission = Permission::create(['name' => 'Delete.Bunga']);
 
-            $permission = Permission::create(['name' => 'Read.Day']);
-            $permission = Permission::create(['name' => 'Create.Day']);
-            $permission = Permission::create(['name' => 'Edit.Day']);
-            $permission = Permission::create(['name' => 'Delete.Day']);
+            $permission = Permission::create(['name' => 'Read.Hari']);
+            $permission = Permission::create(['name' => 'Create.Hari']);
+            $permission = Permission::create(['name' => 'Edit.Hari']);
+            $permission = Permission::create(['name' => 'Delete.Hari']);
 
             DB::commit();
         } catch (\Throwable $th) {
