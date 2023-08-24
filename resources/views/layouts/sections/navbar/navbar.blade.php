@@ -38,8 +38,9 @@
 
 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
     <!-- Search -->
-        @can("'Read.{{ ucfirst($route) }}'")
+        {{-- @can("'Read.{{ ucfirst($route) }}'") --}}
         {{-- @can('Read.Admin') --}}
+        @can('index')
             <form action="/{{ $route }}" method="get">
                 <div class="navbar-nav align-items-center ">
                     <div class="nav-item d-flex align-items-center">
@@ -88,7 +89,7 @@
                     <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="javascript:void(0);">
+                    <a class="dropdown-item" href="/myprofile">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                     </a>
