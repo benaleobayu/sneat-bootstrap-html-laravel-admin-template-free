@@ -4,8 +4,9 @@
 
 @section('content')
     <div class="container">
-        <form method="POST" action="/admin" id="user-form">
+        <form method="POST" action="/admin/{{ $user->id }}" id="user-form">
             @csrf
+            @method('PUT')
             <label for="name" class="form-label">Name:</label>
             <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required>
 
@@ -18,47 +19,25 @@
             <label for="role" class="form-label">Role:</label>
             <select name="role" id="role" class="form-select" required>
                 @foreach ($role as $r)
-                    <option value="{{ $r->name }}">{{ $r->name }}</option>
+                    @if (old('role', $user->roles) == $user->roles)
+                      <option value="{{ $r->name }}" selected>{{ $r->name }}</option>
+                    @else
+                       <option value="{{ $r->name }}">{{ $r->name }}</option>
+                    @endif
                 @endforeach
             </select>
 
             <label for="password" class="form-label">New Password:</label>
-            <input type="password" name="password" id="password" class="form-control" required>
+            <input type="password" name="password" id="password" class="form-control">
 
             <button type="submit" class="btn btn-primary my-3">Simpan</button>
         </form>
     </div>
-    <script>
-        $(document).ready(function() {
-            $("#user-form").submit(function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    type: "POST",
-                    url: "/admin",
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: response.success,
-                        }).then(function() {
-                            window.location.href = '/admin';
-                        });
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 422) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Validation Error',
-                                text: xhr.responseJSON.error, // Menampilkan pesan kesalahan yang lebih spesifik
-                            });
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+    
 
 
 @endsection
+
+@push('myscript')
+  <script type="text/javascript" src="{{ URL::asset ('/assets/_stacks/user_edit.js') }}"></script>
+@endpush

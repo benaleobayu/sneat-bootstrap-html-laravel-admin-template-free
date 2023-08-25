@@ -32,7 +32,7 @@
 
   <!-- Include Scripts -->
   @include('layouts/sections/scripts')
-  @stack('delete')
+  @stack('myscript')
 </body>
 
 </html>

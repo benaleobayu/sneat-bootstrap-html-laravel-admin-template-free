@@ -90,6 +90,6 @@
 {{ $data->links() }}
 @endsection
 
-@push('delete')
+@push('myscript')
 <script type="text/javascript" src="{{ URL::asset ('/assets/_stacks/delete.js') }}"></script>
 @endpush

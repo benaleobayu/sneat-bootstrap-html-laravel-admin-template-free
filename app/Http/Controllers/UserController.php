@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 class UserController extends Controller
@@ -44,20 +45,17 @@ class UserController extends Controller
             'name' => 'required',
             'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:3|max:16'
+            'password' => 'required|min:6'
         ]);
 
-
-        // if (User::where('username', $request->username)->exists() || User::where('email', $request->email)->exists()) {
-        //     return response()->json(['error' => 'Username atau email sudah ada dalam database'], 422);
-        // }
+        $validatedData['password'] = Hash::make($request->password);
 
         $roles = $request->role;
 
-        
         $existingUser = User::where('username', $validatedData['username'])
         ->orWhere('email', $validatedData['email'])
         ->first();
+
         
         if ($existingUser) {
             $errorMessage = '';
@@ -73,22 +71,12 @@ class UserController extends Controller
         $save = User::create($validatedData);
         // Jika validasi berhasil, simpan data admin ke database
         // ...
+     
         $save->assignRole($roles);
 
         return response()->json(['success' => 'Admin berhasil ditambahkan.'], 200);
     }
 
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $user = User::find($id);
@@ -97,18 +85,35 @@ class UserController extends Controller
         return view('content.pengaturan.admin.edit', compact('role', 'user'));
     }
 
-
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+        'name'          => 'required',
+        'username'      => 'required|unique:users,username',
+        'email'         => 'required|unique:users,username',
+        'password'      => 'nullable|min:6' 
+            ]);
+            
+
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        
+        if($request->has('password')){
+            $validatedData['password'] = bcrypt($request->password);
+        }
+        
+        $roles = $request->input('role', []);
+        $user->syncRoles($roles);
+        
+        $user->save();
+
+        return redirect('/admin')->with('success', 'Admin berhasil diubah.');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         User::destroy($id);

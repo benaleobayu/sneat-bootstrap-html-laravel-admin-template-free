@@ -1,64 +1,54 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Pengaturan Admin')
+@section('title', 'My Profile')
 
 @section('content')
-    <div class="d-flex">
-        <div class="top-addon ms-auto">
-            <button class="btn btn-primary" onclick="window.location='/{{ $route }}'"><i class='bx bx-refresh'></i></button>
-            <button class="btn btn-success" onclick="window.location='/{{ $route }}/create'">Create</button>
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Account Settings /</span> Account
+    </h4>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                <li class="nav-item"><a class="nav-link active" href="/myprofile"><i class="bx bx-user me-1"></i>
+                        Account</a></li>
+            </ul>
+            <div class="card mb-4">
+                <h5 class="card-header">Profile Details</h5>
+                <!-- Account -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class=" d-block pt-3">
+                                <img src="{{ asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="object-fit-md-contain w-100 rounded " id="uploadedAvatar" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3 col-md-12">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input class="form-control" type="text" id="firstName" name="firstName" value="{{ $user->name }}" disabled />
+                            </div>
+                            <div class="mb-3 col-md-12">
+                                <label for="firstName" class="form-label">Username</label>
+                                <input class="form-control" type="text" id="firstName" name="firstName" value="{{ $user->username }}" disabled />
+                            </div>
+                            <div class="mb-3 col-md-12">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input class="form-control" type="text" id="email" name="email" value="{{ $user->email }}" disabled />
+                            </div>
+                            <div class="mt-2">
+                                <button type="btn" class="btn btn-primary me-2" onclick="window.location='/myprofile/{{ $user->id }}/edit'">Edit</button>
+                                <button type="reset" class="btn btn-outline-secondary">Dashboard</button>
+                            </div>
+    
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /Account -->
+            </div>
+            <div class="my-5">
+            </div>
         </div>
     </div>
-    <div class="table mt-3">
-        <table class="fluid-table w-100" cellpadding="10" cellspacing=0 border=1>
-            <thead>
-                <tr>
-                    <th class="tab-id">ID</th>
-                    <th>Nama</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th class="tab-act">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (count($data) > 0)
-                    @php
-                        $nomor = 1 + ($data->currentPage() - 1) * $data->perPage();
-                    @endphp
-                    @foreach ($data as $d)
-                        <tr>
-                            <td>{{ $nomor++ }}</td>
-                            <td>{{ $d->name }}</td>
-                            <td>{{ $d->username }}</td>
-                            <td>{{ $d->email }}</td>
-                            @foreach ($d->roles as $role)
-                                <td>
-                                    {{ $role->name }}
-                                </td>
-                            @endforeach
-                            <td class="tab-act-value">
-                                <button class="badge rounded bg-secondary" onclick="window.location='/{{ $route }}/{{ $d->id }}'"><i class='bx bx-show'></i></button>
-                                <button class="badge rounded bg-primary" onclick="window.location='/{{ $route }}/{{ $d->id }}/edit'"><i class='bx bx-edit'></i></button>
-                                <button class="badge rounded bg-danger delete-btn" data-id="/{{ $route }}/{{ $d->id }}" ><i class="bx bx-trash delete-btn" data-id="/{{ $route }}/{{ $d->id }}"></i></button>
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td class="p-0">
-                            <h1 class="position-absolute top-50 start-50">No Results</h1>
-                        </td>
-                    </tr>
-                @endif
-            </tbody>
-        </table>
-    </div>
-
-    {{ $data->links() }}
-
-    @endsection
-
-    @push('delete')
-        <script type="text/javascript" src="{{ URL::asset ('/assets/_stacks/delete.js') }}"></script>
-    @endpush
+@endsection

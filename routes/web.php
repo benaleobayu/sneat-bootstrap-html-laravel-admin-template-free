@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DayController;
 use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\LanggananController;
+use App\Http\Controllers\MyprofileController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\RoleController;
@@ -25,10 +26,8 @@ Route::middleware('auth')->group( function () {
     Route::get('/pages/misc-error', $controller_path . '\pages\MiscError@index')->name('pages-misc-error');
     Route::get('/pages/misc-under-maintenance', $controller_path . '\pages\MiscUnderMaintenance@index')->name('pages-misc-under-maintenance');
 
-    Route::get('/myprofile', function() {
-        $user = auth()->user();
-        return view('content.pengaturan.admin.edit',compact('user'));
-    });
+   
+    Route::resource('/myprofile', MyprofileController::class);
 
     /* Pemesanan */
     Route::resource('/pelanggan', PelangganController::class);
