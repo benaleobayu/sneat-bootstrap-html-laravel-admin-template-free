@@ -3,83 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\Models\myprofile;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class MyprofileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $user = auth()->user();
+        return view('content.myprofile.index',[
+            'user' => $user
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('content.myprofile.edit',[
+            'route' => "myprofile",
+            'user' => $user
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $request, $id)
     {
-        //
+   
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'username' => 'required|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'nullable|min:6'
+        ]);
+
+        $user = User::where('id', $id)->update($validatedData);
+
+        
+        if ($request->filled('password')){
+            $user->password = Hash::make($request->password);
+        }
+
+        Return redirect('/myprofile')->with('success', 'Data berhasil diubah');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\myprofile  $myprofile
-     * @return \Illuminate\Http\Response
-     */
-    public function show(myprofile $myprofile)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\myprofile  $myprofile
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(myprofile $myprofile)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\myprofile  $myprofile
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, myprofile $myprofile)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\myprofile  $myprofile
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(myprofile $myprofile)
-    {
-        //
-    }
 }
+
