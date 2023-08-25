@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tambah Langganan')
+@section('title', 'Tambah '.Str::ucfirst($route))
 
 @section('content')
     <!-- create.blade.php -->

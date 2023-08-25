@@ -13,6 +13,11 @@ class PelangganController extends Controller
     
     protected $route = 'pelanggan';
 
+    public function __construct()
+    {
+        $this->middleware(['permission:Read.Pelanggan']);
+    }
+
     public function index(Request $request)
     {
         $search = $request->query('search');

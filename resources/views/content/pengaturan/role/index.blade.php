@@ -1,14 +1,11 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Daftar Roles')
+@section('title', 'Daftar ' . ucfirst($route))
 
 @section('content')
-<div class="d-flex">
-    <div class="top-addon ms-auto">
-        <button class="btn btn-primary" onclick="window.location='/{{ $route }}'"><i class='bx bx-refresh'></i></button>
-        <button class="btn btn-success" onclick="window.location='/{{ $route }}/create'">Create</button>
-    </div>
-</div>
+
+    <x-btn-create route="{{ $route }}"/>
+
     <div class="table mt-3">
         <table class="fluid-table w-100" cellpadding="10" cellspacing=0 border=1>
             <thead>
@@ -29,11 +26,7 @@
                             <td>{{ $nomor++ }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->updated_at }}</td>
-                            <td class="text-center">
-                                <button class="badge rounded bg-primary" onclick="window.location='/{{ $route }}/{{ $d->id }}/edit'"><i class='bx bx-edit'></i></button>
-                                <button class="badge rounded bg-danger delete-btn" data-id="/{{ $route }}/{{ $d->id }}" ><i class="bx bx-trash delete-btn" data-id="/{{ $route }}/{{ $d->id }}"></i></button>
-                            </td>
-                            </td>
+                            <x-btn-action route="{{ $route }}"  id="{{ $d->id }}"/>
                         </tr>
                     @endforeach
                 @else

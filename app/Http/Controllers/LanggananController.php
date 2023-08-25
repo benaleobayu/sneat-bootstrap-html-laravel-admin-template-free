@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 
 class LanggananController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $route = 'langganan';
+
+    public function __construct()
+    {
+        $this->middleware(['permission:Read.Langganan']);
+    }
+
     public function index(Request $request)
     {
         $search = $request->query('search');
@@ -26,9 +28,10 @@ class LanggananController extends Controller
             $query = Langganan::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         }
         return view('content.dataCenter.langganan.index', [
-            'route' => 'langganan',
+            'route' => $this->route,
             'data' => $query,
-            'search' => $search
+            'search' => $search,
+            'viewSearch' => "index"
         ]);
     }
 
@@ -43,7 +46,9 @@ class LanggananController extends Controller
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.dataCenter.langganan.create', compact('flowers', 'regencies', 'days'));
+        return view('content.dataCenter.langganan.create', compact('flowers', 'regencies', 'days'),[
+            'route' => $this->route
+        ]);
     }
 
     public function store(Request $request)

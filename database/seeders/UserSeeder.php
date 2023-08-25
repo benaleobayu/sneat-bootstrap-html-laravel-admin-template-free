@@ -44,15 +44,16 @@ class UserSeeder extends Seeder
             'email' => 'beno@test.com'
         ],$defaultValue));
 
-        $role1 = Role::create(['name' => 'Admin', 'guard_name' => 'web']);
+        $role1 = Role::create(['name' => 'Super Admin', 'guard_name' => 'web']);
+        Role::create(['name' => 'Admin', 'guard_name' => 'web']);
         Role::create(['name' => 'Officer', 'guard_name' => 'web']);
         Role::create(['name' => 'User', 'guard_name' => 'web']);
 
-        $user1->assignRole('Officer');
+        $user1->assignRole('Admin');
         $user2->assignRole('Officer');
         $user3->assignRole('User');
-        $admins->assignRole('Admin');
+        $admins->assignRole('Super Admin');
 
-        $role1->givePermissionTo(Permission::all());
+        // $role1->givePermissionTo(Permission::all());
     }
 }

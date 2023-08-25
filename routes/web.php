@@ -29,11 +29,12 @@ Route::middleware('auth')->group( function () {
    
     Route::resource('/myprofile', MyprofileController::class);
 
-    /* Pemesanan */
+    /* Data Center */
     Route::resource('/pelanggan', PelangganController::class);
     Route::resource('/langganan', LanggananController::class);
     Route::resource('/kurir', LanggananController::class);
-
+    
+    /* Pemesanan */
     Route::resource('/pesanan', LanggananController::class);
     Route::resource('/invoice', LanggananController::class);
     Route::resource('/pembayaran', LanggananController::class);

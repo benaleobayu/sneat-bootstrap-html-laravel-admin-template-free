@@ -10,7 +10,11 @@ use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware(['permission:Read.Roles']);
+    }
+    
     public function index(Request $request)
     {
         $search = $request->query('search');

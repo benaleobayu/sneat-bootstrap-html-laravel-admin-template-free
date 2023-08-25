@@ -10,11 +10,12 @@ use Spatie\Permission\Models\Role as SpatieRole;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:Read.Admin']);
+    }
+
+
     public function index(Request $request, SpatieRole $SpatieRole)
     {
 
@@ -92,8 +93,9 @@ class UserController extends Controller
         'name'          => 'required',
         'username'      => 'required|unique:users,username',
         'email'         => 'required|unique:users,username',
+        'role'          => 'required',
         'password'      => 'nullable|min:6' 
-            ]);
+        ]);
             
 
         $user = User::find($id);

@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class RegencyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:Read.Daerah']);
+    }
+    
     public function index(Request $request)
     {
         $search = $request->query('search');

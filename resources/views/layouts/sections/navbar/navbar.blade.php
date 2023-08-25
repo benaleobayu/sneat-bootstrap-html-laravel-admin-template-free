@@ -37,21 +37,27 @@
 @endif
 
 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+
+    
     <!-- Search -->
-    @if(isset($menu->can))
-        {{-- @can("'Read.{{ ucfirst($route) }}'") --}}
-        {{-- @can('Read.Admin') --}}
-        @can('{{ $menu->can }}')
-            <form action="/{{ $route }}" method="get">
-                <div class="navbar-nav align-items-center ">
-                    <div class="nav-item d-flex align-items-center">
-                        <i class="bx bx-search fs-4 lh-0"></i>
-                        <input type="text" class="search-input form-control border shadow-none " placeholder="Search.. {{ $me }}"
-                            aria-label="Search..." name="search" value="{{ $search }}">
-                    </div>
-                </div>
-            </form>
-        @endcan
+    @if(request()->route()->getName() === 'pelanggan.index' ||
+        request()->route()->getName() === 'langganan.index' ||
+        request()->route()->getName() === 'kurir.index' ||
+        request()->route()->getName() === 'admin.index' )
+    {{-- @php
+        $permission = 'Read' . Str::ucfirst($route);
+    @endphp
+    @if(auth()->user()->can($permission)) --}}
+    <form action="/{{ $route }}" method="get">
+        <div class="navbar-nav align-items-center ">
+            <div class="nav-item d-flex align-items-center">
+                <i class="bx bx-search fs-4 lh-0"></i>
+                <input type="text" class="search-input form-control border shadow-none " placeholder="Search.. "
+                    aria-label="Search..." name="search" value="{{ $search }}">
+            </div>
+        </div>
+    </form>
+    @else
     @endif
     <!-- /Search -->
     <ul class="navbar-nav flex-row align-items-center ms-auto">
