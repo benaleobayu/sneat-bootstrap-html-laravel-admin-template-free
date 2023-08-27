@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Langganan>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\pesanan>
  */
-class LanggananFactory extends Factory
+class PesananFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,12 +21,11 @@ class LanggananFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
             'regencies_id' =>$this->faker->numberBetween('1', '49'),
-            'hari' =>$this->faker->randomElement(['senin','rabu','sabtu']),
+            'day_id' =>$this->faker->numberBetween('1', '7'),
             'notes' => $this->faker->paragraph(30),
             // 'flower_id' => $this->faker->numberBetween('1', '12'),
             // 'total' => $this->faker->numberBetween('1', '4'),
             'pic' => "Beno"
-
         ];
     }
 }

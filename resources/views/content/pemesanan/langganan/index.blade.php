@@ -16,7 +16,6 @@
                     <th>Jumlah</th>
                     <th>Daerah</th>
                     <th>Catatan</th>
-                    <th>Hari</th>
                     <th>PIC</th>
                     <th class="tab-act">Actions</th>
                 </tr>
@@ -65,7 +64,6 @@
                             @endif
                         </td>
                         <td class="td-order"{{ $d->notes }}</td>
-                        <td class="td-order">{{ $d->hari }}</td>
                         <td class="td-order">{{ $d->pic }}</td>
                         <x-btn-action route="{{ $route }}"  id="{{ $d->id }}"/>
                     </tr>

@@ -13,30 +13,31 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('langganan', function (Blueprint $table) {
+        Schema::create('pesanan', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('phone');
             $table->string('address');
             $table->unsignedBigInteger('regencies_id');
-            $table->string('hari');
+            $table->unsignedBigInteger('day_id');
             $table->text('notes')->nullable();
             $table->text('pic')->nullable();
             $table->timestamps();
 
             $table->foreign('regencies_id')->references('id')->on('regencies')->onDelete('cascade');
+            $table->foreign('day_id')->references('id')->on('days')->onDelete('cascade');
         });
 
-        Schema::create('langganan_flower', function (Blueprint $table) {
-            $table->unsignedBigInteger('langganan_id');
+        Schema::create('pesanan_flower', function (Blueprint $table) {
+            $table->unsignedBigInteger('pesanan_id');
             $table->unsignedBigInteger('flower_id');
             $table->integer('total')->unsigned();
             $table->timestamps();
 
-            $table->foreign('langganan_id')->references('id')->on('langganan')->onDelete('cascade');
+            $table->foreign('pesanan_id')->references('id')->on('pesanan')->onDelete('cascade');
             $table->foreign('flower_id')->references('id')->on('flowers')->onDelete('cascade');
 
-            $table->primary(['langganan_id', 'flower_id']);
+            $table->primary(['pesanan_id', 'flower_id']);
         });
     }
 
@@ -47,7 +48,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('langganan_flower');
-        Schema::dropIfExists('langganan');
+        Schema::dropIfExists('pesanan_flower');
+        Schema::dropIfExists('pesanan');
     }
 };

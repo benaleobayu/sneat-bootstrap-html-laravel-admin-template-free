@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <form method="POST" action="{{ route('pelanggan.store') }}">
+        <form method="POST" action="/{{ $route }}">
             @csrf
             <div class="row mb-3">
                 <div class="col">
@@ -28,7 +28,7 @@
                     <select name="regencies_id" id="regencies_id" class="form-select" required>
                         <option value="">Pilih Daerah</option>
                         @foreach ($regencies as $regency)
-                            <option value="{{ $regency->id }}">{{ $regency->name }}</option>
+                            <option value="{{ $regency->id }}">{{ $regency->name }}, {{ $regency->city }}</option>
                         @endforeach
                     </select>
                 </div>

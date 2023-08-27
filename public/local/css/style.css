@@ -10,6 +10,10 @@ thead {
 td.td-order{
     vertical-align: top !important;
 }
+td.td-nowrap{
+    vertical-align: top !important;
+    white-space: nowrap;
+}
 
 .tab-id {
     width: 2vh;

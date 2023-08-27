@@ -5,7 +5,7 @@
 @section('content')
 
     <x-btn-create route="{{ $route }}"/>
-
+    
     <div class="table mt-3">
         <table class="fluid-table w-100" cellpadding="10" cellspacing=0 border=1>
             <thead>
@@ -27,7 +27,7 @@
                     <tr>
                         <td class="td-order">{{ $nomor++ }}</td>
                         <td class="td-order">{{ $d->name }}</td>
-                        <td class="td-order">{{ $d->phone }}</td>
+                        <td class="td-nowrap">{{ $d->phone }}</td>
                         <td class="td-order">{{ $d->address }} <br> / {{ $d->regencies->name }}</td>
                         <td class="td-order">{{ $d->notes }}</td>
                         <x-btn-action route="{{ $route }}"  id="{{ $d->id }}"/>

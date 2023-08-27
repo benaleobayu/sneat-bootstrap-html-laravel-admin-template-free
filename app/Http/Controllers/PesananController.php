@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorepesananRequest;
+use App\Http\Requests\UpdatepesananRequest;
 use App\Models\Day;
 use App\Models\Flower;
-use App\Models\Langganan;
+use App\Models\pesanan;
 use App\Models\Regency;
 use Illuminate\Http\Request;
 
-class LanggananController extends Controller
+class PesananController extends Controller
 {
-    protected $route = 'langganan';
+    protected $route = 'pesanan';
 
     public function __construct()
     {
-        $this->middleware(['permission:Read.Langganan']);
+        $this->middleware(['permission:Read.Pesanan']);
     }
 
     public function index(Request $request)
@@ -22,13 +24,12 @@ class LanggananController extends Controller
         $search = $request->query('search');
 
         if (!empty($search)) {
-            $query = Langganan::where('name', 'like', '%' . $search . '%')
-                                ->orWhere('hari', 'like', '%' . $search . '%')
+            $query = pesanan::where('name', 'like', '%' . $search . '%')
                 ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         } else {
-            $query = Langganan::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+            $query = pesanan::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         }
-        return view('content.dataCenter.langganan.index', [
+        return view('content.pemesanan.pesanan.index', [
             'route' => $this->route,
             'data' => $query,
             'search' => $search,
@@ -36,18 +37,13 @@ class LanggananController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $flowers = Flower::all();
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.dataCenter.langganan.create', compact('flowers', 'regencies', 'days'),[
+        return view('content.pemesanan.pesanan.create', compact('flowers', 'regencies', 'days'),[
             'route' => $this->route
         ]);
     }
@@ -67,7 +63,7 @@ class LanggananController extends Controller
             'total.*' => 'integer|min:0',
         ]);
 
-        $langganan = new Langganan;
+        $langganan = new pesanan();
         $langganan->name = $validatedData['name'];
         $langganan->phone = $validatedData['phone'];
         $langganan->address = $validatedData['address'];
@@ -84,33 +80,33 @@ class LanggananController extends Controller
         $langganan->flowers()->sync($flowerData);
 
         // Redirect or do something else
-        return redirect('/langganan')->with('success', 'Data Langganan berhasil ditambahkan !');
+        return redirect('/pesanan')->with('success', 'Data Langganan berhasil ditambahkan !');
     }
     public function show($id)
     {
-        $data = Langganan::find($id);
+        $data = pesanan::find($id);
         $name = $data->name;
         $flowers = Flower::all();
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.dataCenter.langganan.show', compact('data', 'name', 'flowers', 'regencies', 'days'));
+        return view('content.pemesanan.pesanan.show', compact('data', 'name', 'flowers', 'regencies', 'days'));
     }
 
     public function edit($id)
     {
-        $data = Langganan::find($id);
+        $data = pesanan::find($id);
         $name = $data->name;
         $flowers = Flower::all();
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.dataCenter.langganan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'));
+        return view('content.pemesanan.pesanan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'));
     }
 
     public function update(Request $request, $id)
     {
-        $langganan = Langganan::findOrFail($id);
+        $langganan = pesanan::findOrFail($id);
 
         $request->validate([
             'name' => 'required',
@@ -137,13 +133,13 @@ class LanggananController extends Controller
         $langganan->save();
 
         // Redirect or do something else
-        return redirect('/langganan')->with('success', 'Data Langganan berhasil diubah !');
+        return redirect('/pesanan')->with('success', 'Data Langganan berhasil diubah !');
     }
 
     public function destroy($id)
     {
-        Langganan::destroy($id);
+        pesanan::destroy($id);
 
-        // return redirect('/langganan')->with('success', 'Data Langganan berhasil dihapus !');
+        // return redirect('/pesanan')->with('success', 'Data Langganan berhasil dihapus !');
     }
 }
