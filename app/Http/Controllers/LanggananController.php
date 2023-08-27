@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Day;
 use App\Models\Flower;
 use App\Models\Langganan;
+use App\Models\pesanan;
 use App\Models\Regency;
 use Illuminate\Http\Request;
 
@@ -146,4 +147,28 @@ class LanggananController extends Controller
 
         // return redirect('/langganan')->with('success', 'Data Langganan berhasil dihapus !');
     }
+
+    public function importDataByDay(Request $request)
+{
+    // Mendapatkan hari yang dipilih oleh pengguna dari permintaan
+    $hari = $request->input('hari');
+
+    // Mendapatkan data langganan berdasarkan hari yang dipilih
+    $langgananRecords = Langganan::where('hari', $hari)->get();
+
+    // Melakukan loop pada data yang diambil dan membuat catatan pesanan
+    foreach ($langgananRecords as $langganan) {
+        pesanan::create([
+            'name' => $langganan->name,
+            'address' => $langganan->address,
+            'phone' => $langganan->phone,
+            'notes' => $langganan->notes,
+            'pic' => $langganan->pic,
+            // Tambahkan kolom-kolom lain sesuai kebutuhan Anda
+        ]);
+    }
+
+    // Opsional: Anda dapat menambahkan pesan keberhasilan atau mengembalikan respons
+    return redirect()->route('pesanan.index')->with('success', 'Data berhasil diimpor.');
+}
 }

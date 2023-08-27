@@ -41,7 +41,7 @@
                             <div class="col-5">
                                 <label for="total" class="form-label">Jumlah:</label>
                                 <input type="number" name="total[]" class="form-control total-input" min="0"
-                                    value="0">
+                                    value="">
                             </div>
                             <div class="col-1">
                             </div>

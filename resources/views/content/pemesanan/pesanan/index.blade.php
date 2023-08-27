@@ -5,7 +5,7 @@
 @section('content')
 
     <x-btn-create route="{{ $route }}"/>
-
+    <button id="importButton" class="btn btn-primary">Import Data</button>
     <div class="table mt-3">
         <table class="fluid-table w-100" cellpadding="10" cellspacing=0 border=1>
             <thead>
@@ -83,5 +83,6 @@
 @endsection
 
 @push('myscript')
+<script type="text/javascript" src="{{ URL::asset ('/assets/_stacks/order_import.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset ('/assets/_stacks/delete.js') }}"></script>
 @endpush
