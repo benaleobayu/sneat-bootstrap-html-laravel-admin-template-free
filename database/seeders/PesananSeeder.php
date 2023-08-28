@@ -15,6 +15,6 @@ class PesananSeeder extends Seeder
      */
     public function run()
     {
-        pesanan::factory()->count(15)->create();
+        pesanan::factory()->count(65)->create();
     }
 }

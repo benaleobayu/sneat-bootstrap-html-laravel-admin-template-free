@@ -5,13 +5,13 @@
 @section('content')
 
     <x-btn-create route="{{ $route }}"/>
-    <button id="importButton" class="btn btn-primary">Import Data</button>
     <div class="table mt-3">
         <table class="fluid-table w-100" cellpadding="10" cellspacing=0 border=1>
             <thead>
                 <tr>
                     <th class="tab-id">ID</th>
-                    <th>Hari & Tanggal</th>
+                    <th>Hari Pesanan</th>
+                    <th>Tanggal</th>
                     <th class="tab-act">Actions</th>
                 </tr>
             </thead>
@@ -23,8 +23,9 @@
                 @foreach ($data as $d)
                 <tr>
                     <td class="td-order">{{ $nomor++ }}</td>
-                    <td class="td-order">{{ $d->day->name }}, {{ $d->day->date }}</td>
-                    <x-btn-action route="{{ $route }}"  id="{{ $d->id }}">
+                    <td class="td-order">{{ $d->name }}</td>
+                    <td class="td-order">{{ $d->date_start }} s/d {{ $d->date_end }}</td>
+                    <x-btn-action route="{{ $route }}"  id="{{ $d->slug }}">
                     
                     </x-btn-action>
 

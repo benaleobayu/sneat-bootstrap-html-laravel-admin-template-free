@@ -24,16 +24,19 @@ class PesananController extends Controller
         $search = $request->query('search');
 
         if (!empty($search)) {
-            $query = pesanan::where('name', 'like', '%' . $search . '%')
+            $query = Day::whereNotBetween('id', [1, 7])
+                ->where(function ($q) use ($search){
+                    $q->where('name', 'like', '%' . $search . '%');
+                }) 
                 ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         } else {
-            $query = pesanan::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+            $query = Day::whereNotBetween('id', [1, 7])
+            ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         }
         return view('content.pemesanan.pesanan.index', [
             'route' => $this->route,
             'data' => $query,
-            'search' => $search,
-            'viewSearch' => "index"
+            'search' => $search
         ]);
     }
 
@@ -81,18 +84,28 @@ class PesananController extends Controller
         // Redirect or do something else
         return redirect('/pesanan')->with('success', 'Data Langganan berhasil ditambahkan !');
     }
-    public function show($id)
-    {
-        $data = pesanan::find($id);
-        $name = $data->name;
-        $flowers = Flower::all();
-        $regencies = Regency::all();
-        $days = Day::all();
+    public function show(Request $request, $slug)
+{
+    $search = $request->query('search');
 
-        return view('content.pemesanan.pesanan.show', compact('data', 'name', 'flowers', 'regencies', 'days'), [
-            'route' => $this->route
-        ]);
+    $query = Day::where('slug', $slug)->firstOrFail()->pesanan();
+
+    if (!empty($search)) {
+        $query->where('name', 'like', '%' . $search . '%');
     }
+
+    $query = $query->orderBy('updated_at', 'desc')
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('content.pemesanan.pesanan.show_order', [
+        'route' => $this->route,
+        'data' => $query,
+        'search' => $search,
+        'slug' => $slug
+    ]);
+}
+
 
     public function edit($id)
     {

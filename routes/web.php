@@ -48,7 +48,7 @@ Route::middleware('auth')->group( function () {
     Route::resource('/setting/roles', RoleController::class);
     Route::resource('/bunga', FlowerController::class);
     Route::resource('/daerah', RegencyController::class);
-    Route::resource('/hari', DayController::class);
+    Route::resource('/hari', DayController::class)->parameters(['hari' => 'slug']);
     
     Route::get('/logout', [LoginController::class, 'logout']);
 });

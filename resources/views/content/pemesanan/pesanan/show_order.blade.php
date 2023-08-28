@@ -5,6 +5,7 @@
 @section('content')
 
     <x-btn-create route="{{ $route }}"/>
+
     <button id="importButton" class="btn btn-primary">Import Data</button>
     <div class="table mt-3">
         <table class="fluid-table w-100" cellpadding="10" cellspacing=0 border=1>
@@ -62,7 +63,7 @@
                                 <div>{{ $d->regencies->name }}</div>
                             @endif
                         </td>
-                        <td class="td-order"{{ $d->notes }}</td>
+                        <td class="td-order">{{ $d->day->name }}, {{ $d->day->date }}</td>
                         <x-btn-action route="{{ $route }}"  id="{{ $d->id }}"/>
                     </tr>
                 @endforeach

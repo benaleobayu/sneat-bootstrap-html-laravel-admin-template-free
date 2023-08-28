@@ -14,5 +14,15 @@ class Day extends Model
     {
         return $this->hasMany(Langganan::class);
     }
-    
+    public function pesanan(): HasMany
+    {
+        return $this->hasMany(pesanan::class, 'day_id', 'id');
+    }
+
+
+
+    public function getRouteKey(): mixed
+    {
+        return $this->slug;
+    }
 }
