@@ -2,15 +2,17 @@
 
 namespace App\View\Components;
 
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class btnAction extends Component
+class btnSimpan extends Component
 {
-    
+    /**
+     * Create a new component instance.
+     *
+     * @return void
+     */
     public function __construct(
-        public string $route,
-        public string $id
+        public string $route
     )
     {
         //
@@ -21,8 +23,8 @@ class btnAction extends Component
      *
      * @return \Illuminate\Contracts\View\View|\Closure|string
      */
-    public function render() : View
+    public function render()
     {
-        return view('components.btn-action');
+        return view('components.btn-simpan');
     }
 }

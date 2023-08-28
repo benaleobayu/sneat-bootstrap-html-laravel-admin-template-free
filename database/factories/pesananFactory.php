@@ -25,7 +25,6 @@ class PesananFactory extends Factory
             'notes' => $this->faker->paragraph(30),
             // 'flower_id' => $this->faker->numberBetween('1', '12'),
             // 'total' => $this->faker->numberBetween('1', '4'),
-            'pic' => "Beno"
         ];
     }
 }

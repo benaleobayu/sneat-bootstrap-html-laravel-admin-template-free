@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <form method="POST" action="{{ route('pelanggan.store') }}/{{ $data->id }}">
+        <form method="POST" action="/{{ $route }}/{{ $data->id }}">
             @csrf
             @method('PUT')
             <div class="row mb-3">
@@ -39,16 +39,20 @@
                 </div>
 
 
+                
+                <div class="col-md-12 mb-3">
+                    <label for="notes" class="form-label">Catatan:</label>
+                    <textarea name="notes" id="notes" class="form-control">{{ old('notes', $data->notes) }}</textarea>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="range" class="form-label">Jarak dari Kepodang:</label>
+                    <input type="text" name="range" id="range" class="form-control" value="{{ old('range', $data->range) }}" required>
+                    <small class="fw-light fst-italic">*Input dalam km (kilometer)</small>
+                </div> 
             </div>
+                
+            <x-btn-simpan route="{{ $route }}"/>
 
-            <div class="mb-3">
-                <label for="notes" class="form-label">Catatan:</label>
-                <textarea name="notes" id="notes" class="form-control">{{ old('notes', $data->notes) }}</textarea>
-            </div>
-            <div class="d-flex my-3">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="btn" class="btn btn-dark ms-auto" onclick="window.location='/{{ $route }}'">Kembali</button>
-            </div>
         </form>
     </div>
 

@@ -3,7 +3,6 @@
 @section('title', 'Edit daerah')
 
 @section('content')
-    <!-- create.blade.php -->
     <div class="container">
         <form method="POST" action="/daerah/{{ $data->id }}">
             @csrf
@@ -24,11 +23,8 @@
                 </div>
             </div>
 
+            <x-btn-simpan route="{{ $route }}"/>
 
-            <div class="d-flex">
-                <button type="btn" class="btn btn-secondary my-3" onclick="window.location='/daerah'">Kembali</button>
-                <button type="submit" class="btn btn-primary my-3 ms-auto">Simpan</button>
-            </div>
         </form>
     </div>
 

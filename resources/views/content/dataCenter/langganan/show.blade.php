@@ -3,7 +3,6 @@
 @section('title', "Lihat data $name")
 
 @section('content')
-    <!-- create.blade.php -->
     <div class="container">
         <div class="row mb-3">
             <div class="col">

@@ -34,16 +34,21 @@
                 </div>
 
 
+                
+                <div class="col-md-12 mb-3">
+                    <label for="notes" class="form-label">Catatan:</label>
+                    <textarea name="notes" id="notes" class="form-control"></textarea>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label for="range" class="form-label">Jarak dari Kepodang:</label>
+                    <input type="text" name="range" id="range" class="form-control" required>
+                    <small class="fw-light fst-italic">*Input dalam km (kilometer)</small>
+                </div> 
             </div>
 
-            <div class="mb-3">
-                <label for="notes" class="form-label">Catatan:</label>
-                <textarea name="notes" id="notes" class="form-control"></textarea>
-            </div>
-            <div class="d-flex my-3">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="btn" class="btn btn-seconday ms-auto" onclick="window.location='/{{ $route }}'">Kembali</button>
-            </div>
+            
+            <x-btn-simpan route="{{ $route }}"/>
         </form>
     </div>
 

@@ -3,7 +3,6 @@
 @section('title', 'Tambah Admin')
 
 @section('content')
-    <!-- create.blade.php -->
     <div class="container">
         <form method="POST" action="/admin" id="user-form">
             @csrf
@@ -26,7 +25,8 @@
             <label for="password" class="form-label">New Password:</label>
             <input type="password" name="password" id="password" class="form-control" required>
 
-            <button type="submit" class="btn btn-primary my-3">Simpan</button>
+            <x-btn-simpan route="{{ $route }}"/>
+
         </form>
     </div>
 

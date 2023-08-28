@@ -19,6 +19,7 @@ class pelangganFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'regencies_id' => $this->faker->numberBetween(1, 49),
             'notes' => $this->faker->sentence(5),
+            'range' => $this->faker->numberBetween(6, 49),
             'type' => $this->faker->randomElement(['c','p'])
             
         ];

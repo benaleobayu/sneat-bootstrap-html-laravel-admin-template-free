@@ -37,6 +37,13 @@
                 <label for="notes" class="form-label" >Catatan:</label>
                 <textarea name="notes" id="notes" class="form-control" disabled>{{ $data->notes }}</textarea>
             </div>
+            
+            <div class="col-md-4 mb-3">
+                <label for="range" class="form-label">Jarak dari Kepodang:</label>
+                <input type="text" name="range" id="range" class="form-control" value="{{ old('range', $data->range) }}" disabled>
+                <small class="fw-light fst-italic">*Input dalam km (kilometer)</small>
+            </div> 
+            
             <div class="d-flex my-3">
                 <button type="btn" class="btn btn-dark ms-auto" onclick="window.location='/{{ $route }}'">Kembali</button>
             </div>

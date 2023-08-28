@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->unsignedBigInteger('regencies_id');
-            $table->string('hari');
+            $table->unsignedBigInteger('day_id');
             $table->text('notes')->nullable();
-            $table->text('pic')->nullable();
             $table->timestamps();
 
             $table->foreign('regencies_id')->references('id')->on('regencies')->onDelete('cascade');
+            $table->foreign('day_id')->references('id')->on('days')->onDelete('cascade');
         });
 
         Schema::create('langganan_flower', function (Blueprint $table) {

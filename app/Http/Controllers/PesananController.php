@@ -70,7 +70,6 @@ class PesananController extends Controller
         $langganan->regencies_id = $validatedData['regencies_id'];
         $langganan->day_id = $validatedData['day_id'];
         $langganan->notes = $validatedData['notes'];
-        $langganan->pic = auth()->user()->name;
         $langganan->save();
 
         $flowerData = [];
@@ -90,7 +89,9 @@ class PesananController extends Controller
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.pemesanan.pesanan.show', compact('data', 'name', 'flowers', 'regencies', 'days'));
+        return view('content.pemesanan.pesanan.show', compact('data', 'name', 'flowers', 'regencies', 'days'), [
+            'route' => $this->route
+        ]);
     }
 
     public function edit($id)
@@ -101,7 +102,9 @@ class PesananController extends Controller
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.pemesanan.pesanan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'));
+        return view('content.pemesanan.pesanan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'),[
+            'route' => $this->route
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -122,7 +125,6 @@ class PesananController extends Controller
         $langganan->regencies_id = $request->regencies_id;
         $langganan->day_id = $request->day_id;
         $langganan->notes = $request->notes;
-        $langganan->pic = auth()->user()->name;
 
         $flowersData = [];
         for ($i = 0; $i < count($request->flower_id); $i++) {

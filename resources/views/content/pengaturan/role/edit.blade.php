@@ -84,10 +84,9 @@
             </div>
 
         </div>
-            <div class="d-flex px-3">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="btn" class="btn btn-secondary ms-auto" onclick="window.location='/daerah'">Kembali</button>
-            </div>
+        
+        <x-btn-simpan route="{{ $route }}"/>
+
         </form>
     </div>
 

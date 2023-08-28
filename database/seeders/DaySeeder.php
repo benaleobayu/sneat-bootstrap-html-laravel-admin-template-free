@@ -25,32 +25,32 @@ class DaySeeder extends Seeder
         Day::create([
             'name' => 'Selasa',
             'slug' => 'selasa',
-            'date' => '2023-01-01'
+            'date' => '2023-01-02'
         ]);
         Day::create([
             'name' => 'Rabu',
             'slug' => 'rabu',
-            'date' => '2023-01-01'
+            'date' => '2023-01-03'
         ]);
         Day::create([
             'name' => 'Kamis',
             'slug' => 'kamis',
-            'date' => '2023-01-01'
+            'date' => '2023-01-04'
         ]);
         Day::create([
             'name' => 'Jumat',
             'slug' => 'jumat',
-            'date' => '2023-01-01'
+            'date' => '2023-01-05'
         ]);
         Day::create([
             'name' => 'Sabtu',
             'slug' => 'sabtu',
-            'date' => '2023-01-01'
+            'date' => '2023-01-06'
         ]);
         Day::create([
             'name' => 'Minggu',
             'slug' => 'minggu',
-            'date' => '2023-01-01'
+            'date' => '2023-01-07'
         ]);
     }
 }

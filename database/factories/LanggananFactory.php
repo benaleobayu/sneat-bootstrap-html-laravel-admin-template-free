@@ -21,11 +21,10 @@ class LanggananFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
             'regencies_id' =>$this->faker->numberBetween('1', '49'),
-            'hari' =>$this->faker->randomElement(['senin','rabu','sabtu']),
+            'day_id' =>$this->faker->numberBetween('1', '7'),
             'notes' => $this->faker->paragraph(30),
             // 'flower_id' => $this->faker->numberBetween('1', '12'),
             // 'total' => $this->faker->numberBetween('1', '4'),
-            'pic' => "Beno"
 
         ];
     }

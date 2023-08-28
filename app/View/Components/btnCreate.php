@@ -16,7 +16,6 @@ class btnCreate extends Component
     
     public function __construct(
         public string $route,
-        public string $d
     )
     {
     }

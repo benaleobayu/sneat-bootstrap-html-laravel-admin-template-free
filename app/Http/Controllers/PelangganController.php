@@ -56,7 +56,8 @@ class PelangganController extends Controller
             'name' => 'required',
             'phone' => 'max:15',
             'address' => 'required',
-            'regencies_id' => 'required'
+            'regencies_id' => 'required',
+            'range' => 'required'
         ]);
         $validatedData['notes'] = $request->notes;
         $validatedData['type'] = 'p';
@@ -84,19 +85,20 @@ class PelangganController extends Controller
         $regencies = Regency::orderBy('name', 'asc')->get();
 
         return view('content.dataCenter.pelanggan.edit', [
-            'route'         => $this->route,
-            'data'     => $data,
-            'regencies'     => $regencies
+            'route'             => $this->route,
+            'data'              => $data,
+            'regencies'         => $regencies
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
-            'phone' => 'max:15',
-            'address' => 'required',
-            'regencies_id' => 'required'
+            'name'              => 'required',
+            'phone'             => 'max:15',
+            'address'           => 'required',
+            'regencies_id'      => 'required',
+            'range'             => 'required'
         ]);
         $validatedData['notes'] = $request->notes;
         $validatedData['type'] = 'p';

@@ -75,7 +75,6 @@ class LanggananController extends Controller
         $langganan->regencies_id = $validatedData['regencies_id'];
         $langganan->day_id = $validatedData['day_id'];
         $langganan->notes = $validatedData['notes'];
-        $langganan->pic = auth()->user()->name;
         $langganan->save();
 
         $flowerData = [];
@@ -106,7 +105,9 @@ class LanggananController extends Controller
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.dataCenter.langganan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'));
+        return view('content.dataCenter.langganan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'),[
+            'route' => $this->route
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -127,7 +128,6 @@ class LanggananController extends Controller
         $langganan->regencies_id = $request->regencies_id;
         $langganan->day_id = $request->day_id;
         $langganan->notes = $request->notes;
-        $langganan->pic = auth()->user()->name;
 
         $flowersData = [];
         for ($i = 0; $i < count($request->flower_id); $i++) {
@@ -163,7 +163,6 @@ class LanggananController extends Controller
             'address' => $langganan->address,
             'phone' => $langganan->phone,
             'notes' => $langganan->notes,
-            'pic' => $langganan->pic,
             // Tambahkan kolom-kolom lain sesuai kebutuhan Anda
         ]);
     }

@@ -77,7 +77,8 @@
                 <textarea name="notes" id="notes" class="form-control"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary my-3">Simpan</button>
+            <x-btn-simpan route="{{ $route }}"/>
+
         </form>
     </div>
 

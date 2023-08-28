@@ -53,7 +53,8 @@ class KurirController extends Controller
             'name' => 'required',
             'phone' => 'max:15',
             'address' => 'required',
-            'regencies_id' => 'required'
+            'regencies_id' => 'required',
+            'range' => 'required'
         ]);
         $validatedData['notes'] = $request->notes;
         $validatedData['type'] = 'c';
@@ -93,7 +94,8 @@ class KurirController extends Controller
             'name'          => 'required',
             'phone'         => 'max:15',
             'address'       => 'required',
-            'regencies_id'  => 'required'
+            'regencies_id'  => 'required',
+            'range'  => 'required'
         ]);
         $validatedData['notes'] = $request->notes;
         $validatedData['type'] = 'c';

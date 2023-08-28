@@ -3,7 +3,6 @@
 @section('title', 'Tambah '.Str::ucfirst($route))
 
 @section('content')
-    <!-- create.blade.php -->
     <div class="container">
         <form method="POST" action="{{ route('langganan.store') }}">
             @csrf
@@ -78,7 +77,8 @@
                 <textarea name="notes" id="notes" class="form-control"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary my-3">Simpan</button>
+            <x-btn-simpan route="{{ $route }}"/>
+
         </form>
     </div>
     <script>

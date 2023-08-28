@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('notes')->nullable();
+            $table->integer('range')->nullable();
             $table->string('type');
             $table->foreignId('regencies_id');
             $table->timestamps();
