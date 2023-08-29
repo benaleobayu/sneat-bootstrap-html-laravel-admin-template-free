@@ -5,10 +5,12 @@
 @section('content')
 
     <div class="table mt-3">
-        <table class="fluid-table w-100" cellpadding="10" cellspacing=0 border=1>
+        <table class="table table-striped table-hover fluid-table w-100 " cellpadding="10" cellspacing=0 border=1>
             <thead>
                 <tr>
                     <th class="tab-id">ID</th>
+                    <th>Route</th>
+                    <th>Driver</th>
                     <th>Nama</th>
                     <th>Bunga</th>
                     <th>Jumlah</th>
@@ -17,7 +19,7 @@
                     <th>Total</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 @if (count($data) > 0)
                     @php
                         $nomor = 1 + ($data->currentPage() - 1) * $data->perPage();
@@ -28,6 +30,8 @@
                         @endphp
                         <tr>
                             <td class="td-order">{{ $nomor++ }}</td>
+                            <td class="td-order">{{ $d->route}}</td>
+                            <td class="td-order">{{ $d->rider}}</td>
                             <td class="td-order">
                                 @if ($flowersCount > 1)
                                     @for ($i = 0; $i < $flowersCount; $i++)

@@ -176,7 +176,7 @@ class PesananController extends Controller
             $query->where('name', 'like', '%' . $search . '%');
         }
 
-        $query = $query->orderBy('updated_at', 'desc')
+        $query = $query->orderBy('route', 'asc')
             ->paginate(100)
             ->withQueryString();
 
