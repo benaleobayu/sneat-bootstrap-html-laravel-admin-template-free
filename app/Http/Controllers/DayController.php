@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDayRequest;
 use App\Http\Requests\UpdateDayRequest;
 use App\Models\Day;
+use Illuminate\Http\Request;
 
 class DayController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    protected $route = "hari";
+
     public function index()
     {
         //
@@ -25,26 +24,27 @@ class DayController extends Controller
      */
     public function create()
     {
-        //
+        return view('content.pengaturan.hari.create', [
+            'route'         => $this->route
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreDayRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreDayRequest $request)
+
+    public function store(Request $request)
     {
-        //
+        $validatetData = $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:days,slug',
+            'date_start' => 'required',
+            'date_end' => 'required'
+        ]);
+
+        Day::create($validatetData);
+
+        return redirect('/pesanan')->with('success', 'Data berhasil ditambahkan !');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Day  $day
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Day $day)
     {
         //
@@ -56,31 +56,49 @@ class DayController extends Controller
      * @param  \App\Models\Day  $day
      * @return \Illuminate\Http\Response
      */
-    public function edit(Day $day)
+    public function edit($id)
     {
-        //
+        $day = Day::find($id);
+        if (!$day) {
+            abort(404); // Tambahkan penanganan jika data tidak ditemukan.
+        }
+
+        return view('content.pengaturan.hari.edit', [
+            'route' => $this->route,
+            'data' => $day
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateDayRequest  $request
-     * @param  \App\Models\Day  $day
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateDayRequest $request, Day $day)
+
+    public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            'name'       => 'required',
+            'slug'       => 'required|unique:days,slug,' . $id,
+            'date_start' => 'required',
+            'date_end'   => 'required'
+        ]);
+    
+        $day = Day::findOrFail($id); // Temukan catatan berdasarkan ID
+    
+        // Update hanya bidang-bidang yang berubah
+        $day->name = $request->input('name');
+        $day->date_start = $request->input('date_start');
+        $day->date_end = $request->input('date_end');
+        
+        // Simpan slug hanya jika berbeda
+        if ($day->slug != $request->input('slug')) {
+            $day->slug = $request->input('slug');
+        }
+    
+        $day->save();
+
+        return redirect('/pesanan')->with('success', 'Data berhasil diubah !');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Day  $day
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Day $day)
+    public function destroy($id)
     {
-        //
+        Day::destroy($id);
     }
 }

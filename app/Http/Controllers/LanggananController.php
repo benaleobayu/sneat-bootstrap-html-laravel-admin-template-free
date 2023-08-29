@@ -46,7 +46,7 @@ class LanggananController extends Controller
     {
         $flowers = Flower::all();
         $regencies = Regency::all();
-        $days = Day::all();
+        $days = Day::whereBetween('id', [1,7])->get();
 
         return view('content.dataCenter.langganan.create', compact('flowers', 'regencies', 'days'),[
             'route' => $this->route
@@ -62,6 +62,8 @@ class LanggananController extends Controller
             'regencies_id' => 'required',
             'day_id' => 'required',
             'notes' => 'nullable',
+            'range' => 'nullable',
+            'route' => 'nullable',
             'flower_id' => 'required|array',
             'flower_id.*' => 'exists:flowers,id',
             'total' => 'required|array',
@@ -75,6 +77,8 @@ class LanggananController extends Controller
         $langganan->regencies_id = $validatedData['regencies_id'];
         $langganan->day_id = $validatedData['day_id'];
         $langganan->notes = $validatedData['notes'];
+        $langganan->range = $validatedData['range'];
+        $langganan->route = $validatedData['route'];
         $langganan->save();
 
         $flowerData = [];
@@ -92,7 +96,7 @@ class LanggananController extends Controller
         $name = $data->name;
         $flowers = Flower::all();
         $regencies = Regency::all();
-        $days = Day::all();
+        $days = Day::whereBetween('id', [1,7])->get();
 
         return view('content.dataCenter.langganan.show', compact('data', 'name', 'flowers', 'regencies', 'days'));
     }
@@ -103,7 +107,7 @@ class LanggananController extends Controller
         $name = $data->name;
         $flowers = Flower::all();
         $regencies = Regency::all();
-        $days = Day::all();
+        $days = Day::whereBetween('id', [1,7])->get();
 
         return view('content.dataCenter.langganan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'),[
             'route' => $this->route
@@ -120,6 +124,9 @@ class LanggananController extends Controller
             'address' => 'required',
             'regencies_id' => 'required',
             'day_id' => 'required',
+            'notes' => 'nullable',
+            'range' => 'nullable',
+            'route' => 'nullable',
         ]);
 
         $langganan->name = $request->name;
@@ -128,6 +135,8 @@ class LanggananController extends Controller
         $langganan->regencies_id = $request->regencies_id;
         $langganan->day_id = $request->day_id;
         $langganan->notes = $request->notes;
+        $langganan->range = $request->range;
+        $langganan->route = $request->route;
 
         $flowersData = [];
         for ($i = 0; $i < count($request->flower_id); $i++) {

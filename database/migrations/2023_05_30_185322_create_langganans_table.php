@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('regencies_id');
             $table->unsignedBigInteger('day_id');
             $table->text('notes')->nullable();
+            $table->string('range')->nullable();
             $table->timestamps();
 
             $table->foreign('regencies_id')->references('id')->on('regencies')->onDelete('cascade');

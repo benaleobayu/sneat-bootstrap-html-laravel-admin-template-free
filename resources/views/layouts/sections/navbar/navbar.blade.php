@@ -58,6 +58,7 @@
         </div>
     </form>
     @else
+    {{ $route }}
     @endif
     <!-- /Search -->
     <ul class="navbar-nav flex-row align-items-center ms-auto">

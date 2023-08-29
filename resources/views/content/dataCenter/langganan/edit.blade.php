@@ -64,9 +64,9 @@
                         <option value="">Pilih Daerah</option>
                         @foreach ($regencies as $regency)
                             @if (old('regencies_id', $data->regencies->id) == $regency->id)
-                                <option value="{{ $regency->id }}" selected>{{ $regency->name }}</option>
+                                <option value="{{ $regency->id }}" selected>{{ $regency->name }}, {{ $regency->city }}</option>
                             @else
-                                <option value="{{ $regency->id }}">{{ $regency->name }}</option>
+                                <option value="{{ $regency->id }}">{{ $regency->name }}, {{ $regency->city }}</option>
                             @endif
                         @endforeach
                     </select>
@@ -92,10 +92,11 @@
                 <textarea name="notes" id="notes" class="form-control">{{ old('notes', $data->notes) }}</textarea>
             </div> 
             
-            <div class="mb-3">
-                <label for="pic" class="form-label">Catatan:</label>
-                <input type="text" name="pic" id="pic" class="form-control" value="{{ old('pic', $data->pic) }}" required>
-            </div>
+            <div class="col-md-4 mb-3">
+                <label for="range" class="form-label">Jarak dari Kepodang:</label>
+                <input type="text" name="range" id="range" class="form-control" value="{{ old('range', $data->range) }}" >
+                <small class="fw-light fst-italic">*Input dalam km (kilometer)</small>
+            </div> 
 
             <x-btn-simpan route="{{ $route }}"/>
 

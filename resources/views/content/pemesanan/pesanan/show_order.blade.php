@@ -44,7 +44,7 @@
                                 <span class="fw-normal">Telp :</span> {{ $d->phone }}
                             </div>
                         </td>
-                        <td class="td-order">
+                        <td class="td-nowrap">
                             @foreach ($d->flowers as $flower)
                                 <div>{{ $flower->name }}</div>
                             @endforeach

@@ -11,7 +11,6 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,9 +37,14 @@ Route::middleware('auth')->group( function () {
     
     /* Pemesanan */
     Route::resource('/pesanan', PesananController::class);
-    Route::resource('/invoice', LanggananController::class);
     Route::resource('/pembayaran', LanggananController::class);
 
+    Route::get('/pesanan/h/create', [DayController::class, 'create'])->name('Create.Hari');
+    Route::get('/pesanan/h/{slug}/edit', [DayController::class, 'edit'])->name('Edit.Hari');
+    Route::put('/pesanan/h/{slug}', [DayController::class, 'update'])->name('Update.Hari');
+    Route::get('/pesanan/h/{slug}', [DayController::class, 'destroy'])->name('Delete.Hari');
+
+    Route::get('/pesanan/{slug}/invoice', [PesananController::class, 'invoice'])->name('Invoice');
 
     /* Settings */
     Route::resource('/admin', UserController::class);

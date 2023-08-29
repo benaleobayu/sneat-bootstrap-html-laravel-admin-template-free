@@ -10,6 +10,8 @@ class Day extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function langganan(): HasMany
     {
         return $this->hasMany(Langganan::class);
@@ -21,8 +23,8 @@ class Day extends Model
 
 
 
-    public function getRouteKey(): mixed
+    public static function findBySlug($slug)
     {
-        return $this->slug;
+        return self::where('slug', $slug)->first();
     }
 }

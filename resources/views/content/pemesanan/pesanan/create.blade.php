@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tambah '.Str::ucfirst($route))
+@section('title', 'Tambah ' . Str::ucfirst($route))
 
 @section('content')
     <div class="container">
@@ -51,45 +51,58 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col">
+                <div class="col-md-12">
                     <label for="regencies_id" class="form-label">Daerah:</label>
                     <select name="regencies_id" id="regencies_id" class="form-select" required>
                         <option value="">Pilih Daerah</option>
                         @foreach ($regencies as $regency)
-                            <option value="{{ $regency->id }}">{{ $regency->name }}</option>
+                            <option value="{{ $regency->id }}">{{ $regency->name }}, {{ $regency->city }}</option>
                         @endforeach
                     </select>
                 </div>
 
-                <div class="col">
+                <div class="col-md-12">
                     <label for="day_id" class="form-label">Hari:</label>
                     <select name="day_id" id="day_id" class="form-select" required>
                         <option value="">Pilih Hari</option>
                         @foreach ($days as $day)
-                            <option value="{{ $day->id }}">{{ $day->name }}</option>
+                            <option value="{{ $day->id }}">{{ $day->name }} - [{{ $day->date_start }} s/d {{ $day->date_end }}]</option>
                         @endforeach
                     </select>
                 </div>
+
+                <div class="col-md-12 mb-3">
+                    <label for="notes" class="form-label">Catatan:</label>
+                    <textarea name="notes" id="notes" class="form-control"></textarea>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="range" class="form-label">Jarak dari Kepodang:</label>
+                    <input type="text" name="range" id="range" class="form-control">
+                    <small class="fw-light fst-italic">*Input dalam km (kilometer)</small>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="kurir" class="form-label">Kurir:</label>
+                    <input type="text" name="kurir" id="kurir" class="form-control">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="route" class="form-label">Route:</label>
+                    <input type="text" name="route" id="route" class="form-control">
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="notes" class="form-label">Catatan:</label>
-                <textarea name="notes" id="notes" class="form-control"></textarea>
-            </div>
-
-            <x-btn-simpan route="{{ $route }}"/>
+            <x-btn-simpan route="{{ $route }}" />
 
         </form>
     </div>
 
-<script>
-    // Fetch JSON data for flowers
-    var flowersData = <?php echo json_encode($flowers); ?>;
-</script>
+    <script>
+        // Fetch JSON data for flowers
+        var flowersData = <?php echo json_encode($flowers); ?>;
+    </script>
 
 @endsection
 
 
 @push('myscript')
-<script type="text/javascript" src="{{ URL::asset ('/assets/_stacks/loop_order.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('/assets/_stacks/loop_order.js') }}"></script>
 @endpush

@@ -25,18 +25,18 @@ class PesananController extends Controller
 
         if (!empty($search)) {
             $query = Day::whereNotBetween('id', [1, 7])
-                ->where(function ($q) use ($search){
+                ->where(function ($q) use ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
-                }) 
-                ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+                })
+                ->orderBy('date_end', 'desc')->paginate(10)->withQueryString();
         } else {
             $query = Day::whereNotBetween('id', [1, 7])
-            ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
+                ->orderBy('date_end', 'desc')->paginate(10)->withQueryString();
         }
         return view('content.pemesanan.pesanan.index', [
             'route' => $this->route,
             'data' => $query,
-            'search' => $search
+            'search' => $search,
         ]);
     }
 
@@ -44,9 +44,9 @@ class PesananController extends Controller
     {
         $flowers = Flower::all();
         $regencies = Regency::all();
-        $days = Day::all();
+        $days = Day::whereNotBetween('id', [1, 7])->orderBy('date_end', 'desc')->get();
 
-        return view('content.pemesanan.pesanan.create', compact('flowers', 'regencies', 'days'),[
+        return view('content.pemesanan.pesanan.create', compact('flowers', 'regencies', 'days'), [
             'route' => $this->route
         ]);
     }
@@ -85,26 +85,26 @@ class PesananController extends Controller
         return redirect('/pesanan')->with('success', 'Data Langganan berhasil ditambahkan !');
     }
     public function show(Request $request, $slug)
-{
-    $search = $request->query('search');
+    {
+        $search = $request->query('search');
 
-    $query = Day::where('slug', $slug)->firstOrFail()->pesanan();
+        $query = Day::where('slug', $slug)->firstOrFail()->pesanan();
 
-    if (!empty($search)) {
-        $query->where('name', 'like', '%' . $search . '%');
+        if (!empty($search)) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        $query = $query->orderBy('updated_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('content.pemesanan.pesanan.show_order', [
+            'route' => $this->route,
+            'data' => $query,
+            'search' => $search,
+            'slug' => $slug
+        ]);
     }
-
-    $query = $query->orderBy('updated_at', 'desc')
-        ->paginate(10)
-        ->withQueryString();
-
-    return view('content.pemesanan.pesanan.show_order', [
-        'route' => $this->route,
-        'data' => $query,
-        'search' => $search,
-        'slug' => $slug
-    ]);
-}
 
 
     public function edit($id)
@@ -115,7 +115,7 @@ class PesananController extends Controller
         $regencies = Regency::all();
         $days = Day::all();
 
-        return view('content.pemesanan.pesanan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'),[
+        return view('content.pemesanan.pesanan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'), [
             'route' => $this->route
         ]);
     }
@@ -130,6 +130,10 @@ class PesananController extends Controller
             'address' => 'required',
             'regencies_id' => 'required',
             'day_id' => 'required',
+            'notes' => 'required',
+            'range' => 'required',
+            'rider' => 'required',
+            'route' => 'required',
         ]);
 
         $langganan->name = $request->name;
@@ -138,6 +142,10 @@ class PesananController extends Controller
         $langganan->regencies_id = $request->regencies_id;
         $langganan->day_id = $request->day_id;
         $langganan->notes = $request->notes;
+        $langganan->range = $request->range;
+        $langganan->range = $request->range;
+        $langganan->rider = $request->rider;
+        $langganan->route = $request->route;
 
         $flowersData = [];
         for ($i = 0; $i < count($request->flower_id); $i++) {
@@ -156,5 +164,28 @@ class PesananController extends Controller
         pesanan::destroy($id);
 
         // return redirect('/pesanan')->with('success', 'Data Langganan berhasil dihapus !');
+    }
+
+    public function invoice(Request $request, $slug)
+    {
+        $search = $request->query('search');
+
+        $query = Day::where('slug', $slug)->firstOrFail()->pesanan();
+
+        if (!empty($search)) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        $query = $query->orderBy('updated_at', 'desc')
+            ->paginate(100)
+            ->withQueryString();
+
+
+        return view('content.pemesanan.pesanan.show_invoice', [
+            'route' => "Invoice",
+            'data' => $query,
+            'search' => $search,
+            'slug' => $slug
+        ]);
     }
 }
