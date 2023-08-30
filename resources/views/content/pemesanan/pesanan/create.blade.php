@@ -26,30 +26,40 @@
                     <div class="card-header d-flex align-items-center">
                         <h5>Pesanan</h5>
                         <button type="button" id="add-flower" class="btn btn-primary ms-auto">Tambah</button>
-
                     </div>
                     <div id="card-body" class="card-body">
                         <div class="row flower-input mb-3">
+                            <div class="col-3"> <!-- New column for the "Additional" field -->
+                                <label for="additional" class="form-label">Additional:</label>
+                                <select name="additional[]" class="form-select">
+                                    <option value="">Masukan Additional</option> <!-- Add this option -->
+                                    @foreach ($additional as $extraFlower)
+                                        <option value="{{ $extraFlower->id }}">{{ $extraFlower->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-6">
                                 <label for="flower_id" class="form-label">Bunga:</label>
                                 <select name="flower_id[]" class="form-select flower-select" required>
+                                    <option value="">Pilih</option>
                                     @foreach ($flowers as $flower)
                                         <option value="{{ $flower->id }}">{{ $flower->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-5">
+                            <div class="col-2">
                                 <label for="total" class="form-label">Jumlah:</label>
-                                <input type="number" name="total[]" class="form-control total-input" min="0"
-                                    value="">
+                                <input type="number" name="total[]" class="form-control total-input" min="0" value="">
                             </div>
-                            <div class="col-1">
+                            <div class="col-1 p-0">
+                                <!-- Delete button -->
+                                <button type="button" class="btn btn-danger delete-flower mt-4">Delete</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+            
             <div class="row mb-3">
                 <div class="col-md-12">
                     <label for="regencies_id" class="form-label">Daerah:</label>
@@ -94,15 +104,16 @@
 
         </form>
     </div>
-
     <script>
         // Fetch JSON data for flowers
         var flowersData = <?php echo json_encode($flowers); ?>;
+        var additional = @json($additional);
+
     </script>
 
 @endsection
 
 
 @push('myscript')
-    <script type="text/javascript" src="{{ URL::asset('/assets/_stacks/loop_order.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('/assets/_stacks/loop_order_pesanan.js') }}"></script>
 @endpush

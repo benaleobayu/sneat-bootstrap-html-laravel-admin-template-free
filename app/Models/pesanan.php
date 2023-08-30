@@ -17,9 +17,16 @@ class pesanan extends Model
     public function flowers()
     {
         return $this->belongsToMany(Flower::class, 'pesanan_flower')
-            ->withPivot('total')
+            ->withPivot('total', 'additional_flower_id')
             ->withTimestamps();
     }
+    
+    public function additionalFlowers()
+    {
+        return $this->belongsToMany(Flower::class, 'pesanan_flower', 'pesanan_id', 'additional_flower_id')
+            ->withTimestamps();
+    }
+   
 
     public function day():BelongsTo
     {

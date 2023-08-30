@@ -3,6 +3,7 @@
 @section('title', "Edit $name")
 
 @section('content')
+
     <div class="container">
         <form method="POST" action="/{{ $route }}/{{ $data->id }}">
             @csrf
@@ -33,10 +34,24 @@
                     <div id="card-body" class="card-body">
                         @foreach ($data->flowers as $flowerz)
                             <div class="row flower-input mb-3">
+                                <div class="col-3"> <!-- New column for the "Additional" field -->
+                                    <label for="additional" class="form-label">Additional:</label>
+                                    <select name="additional[]" class="form-select">
+                                        <option value="">Masukan Additional </option> <!-- Add this option -->
+                                        @foreach ($additional as $f)
+                                            @if (old('additional[]', $data->additionalFlowers[0]->id) == $f->id)
+                                                <option value="{{ $f->id }}" selected>{{ $f->name }}</option>
+                                            @else
+                                                <option value="{{ $f->id }}">{{ $f->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="col-6">
                                     <label for="flower_id" class="form-label">Bunga:</label>
                                     <select name="flower_id[]" class="form-select flower-select" required>
                                         @foreach ($flowers as $f)
+                                            <option value="" disabled>Pilih Bunga</option> <!-- Add this option -->
                                             @if (old('flower_id[]', $flowerz->id) == $f->id)
                                                 <option value="{{ $f->id }}" selected>{{ $f->name }}</option>
                                             @else
@@ -45,13 +60,14 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-5">
+                                <div class="col-2">
                                     <label for="total" class="form-label">Jumlah:</label>
                                     <input type="number" name="total[]" class="form-control total-input" min="0"
-                                        value="{{ $flowerz->pivot->total }}">
+                                    value="{{ $flowerz->pivot->total }}">
                                 </div>
-                                <div class="col-1 d-flex align-items-end">
-                                    <button type="button" class="btn btn-danger delete-flower ">X</button>
+                                <div class="col-1 p-0 ">
+                                    <label for="total" class="form-label">Action</label>
+                                    <button type="button" class="btn btn-danger delete-flower">Delete</button>
                                 </div>
                             </div>
                         @endforeach
@@ -93,16 +109,19 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="range" class="form-label">Jarak dari Kepodang:</label>
-                    <input type="text" name="range" id="range" value="{{ old('range', $data->range) }}" class="form-control">
+                    <input type="text" name="range" id="range" value="{{ old('range', $data->range) }}"
+                        class="form-control">
                     <small class="fw-light fst-italic">*Input dalam km (kilometer)</small>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="rider" class="form-label">Kurir:</label>
-                    <input type="text" name="rider" id="rider" class="form-control" value="{{ old('rider', $data->rider) }}">
+                    <input type="text" name="rider" id="rider" class="form-control"
+                        value="{{ old('rider', $data->rider) }}">
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="route" class="form-label">Route:</label>
-                    <input type="text" name="route" id="route" class="form-control" value="{{ old('route', $data->route) }}">
+                    <input type="text" name="route" id="route" class="form-control"
+                        value="{{ old('route', $data->route) }}">
                 </div>
             </div>
 
@@ -113,10 +132,11 @@
     <script>
         // Fetch JSON data for flowers
         var flowersData = <?php echo json_encode($flowers); ?>;
+        var additional = @json($additional);
     </script>
 
 @endsection
 
 @push('myscript')
-    <script type="text/javascript" src="{{ URL::asset('/assets/_stacks/loop_order.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('/assets/_stacks/loop_order_pesanan.js') }}"></script>
 @endpush

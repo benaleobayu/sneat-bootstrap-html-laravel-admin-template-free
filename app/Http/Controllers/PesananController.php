@@ -42,11 +42,12 @@ class PesananController extends Controller
 
     public function create()
     {
-        $flowers = Flower::all();
+        $flowers = Flower::where('additional', 'false')->get();
+        $additional = Flower::where('additional', 'true')->get();
         $regencies = Regency::all();
         $days = Day::whereNotBetween('id', [1, 7])->orderBy('date_end', 'desc')->get();
 
-        return view('content.pemesanan.pesanan.create', compact('flowers', 'regencies', 'days'), [
+        return view('content.pemesanan.pesanan.create', compact('flowers', 'regencies', 'days', 'additional'), [
             'route' => $this->route
         ]);
     }
@@ -60,13 +61,15 @@ class PesananController extends Controller
             'regencies_id' => 'required',
             'day_id' => 'required',
             'notes' => 'nullable',
+            'additional' => 'array',
+            'additional.*' => 'exists:flowers,id', // Validasi tambahan harus sesuai dengan tabel flowers
             'flower_id' => 'required|array',
-            'flower_id.*' => 'exists:flowers,id',
+            'flower_id.*' => 'exists:flowers,id', // Validasi bunga juga harus sesuai dengan tabel flowers
             'total' => 'required|array',
             'total.*' => 'integer|min:0',
         ]);
-
-        $langganan = new pesanan();
+    
+        $langganan = new Pesanan(); // Pastikan nama model "Pesanan" sudah benar
         $langganan->name = $validatedData['name'];
         $langganan->phone = $validatedData['phone'];
         $langganan->address = $validatedData['address'];
@@ -74,16 +77,28 @@ class PesananController extends Controller
         $langganan->day_id = $validatedData['day_id'];
         $langganan->notes = $validatedData['notes'];
         $langganan->save();
-
+    
         $flowerData = [];
+    
+        // Loop melalui data bunga yang diposting
         foreach ($validatedData['flower_id'] as $index => $flowerId) {
-            $flowerData[$flowerId] = ['total' => $validatedData['total'][$index]];
+            $flowerData[$flowerId] = [
+                'total' => $validatedData['total'][$index],
+            ];
+    
+            // Jika ada bunga tambahan, tambahkan juga ke dalam data
+            if (isset($validatedData['additional'][$index])) {
+                $flowerData[$flowerId]['additional_flower_id'] = $validatedData['additional'][$index];
+            }
         }
+    
+        // Synchronize data bunga ke dalam relasi
         $langganan->flowers()->sync($flowerData);
-
-        // Redirect or do something else
+    
+        // Redirect atau lakukan tindakan lainnya
         return redirect('/pesanan')->with('success', 'Data Langganan berhasil ditambahkan !');
     }
+    
     public function show(Request $request, $slug)
     {
         $search = $request->query('search');
@@ -111,53 +126,65 @@ class PesananController extends Controller
     {
         $data = pesanan::find($id);
         $name = $data->name;
-        $flowers = Flower::all();
+        $flowers = Flower::where('additional', 'false')->get();
+        $additional = Flower::where('additional', 'true')->get();
         $regencies = Regency::all();
-        $days = Day::all();
+        $days = Day::whereNotBetween('id', [1,7])->get();
 
-        return view('content.pemesanan.pesanan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'), [
+        return view('content.pemesanan.pesanan.edit', compact('data', 'name', 'flowers', 'additional', 'regencies', 'days'), [
             'route' => $this->route
         ]);
     }
 
     public function update(Request $request, $id)
-    {
-        $langganan = pesanan::findOrFail($id);
+{
+    // Validasi input
+    $validatedData = $request->validate([
+        'name' => 'required',
+        'phone' => 'required',
+        'address' => 'required',
+        'regencies_id' => 'required',
+        'day_id' => 'required',
+        'notes' => 'nullable',
+        'additional' => 'array',
+        'additional.*' => 'exists:flowers,id', // Validasi tambahan harus sesuai dengan tabel flowers
+        'flower_id' => 'required|array',
+        'flower_id.*' => 'exists:flowers,id', // Validasi bunga juga harus sesuai dengan tabel flowers
+        'total' => 'required|array',
+        'total.*' => 'integer|min:0',
+    ]);
 
-        $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'regencies_id' => 'required',
-            'day_id' => 'required',
-            'notes' => 'required',
-            'range' => 'required',
-            'rider' => 'required',
-            'route' => 'required',
-        ]);
+    // Ambil objek Pesanan yang akan diperbarui
+    $langganan = Pesanan::findOrFail($id);
 
-        $langganan->name = $request->name;
-        $langganan->phone = $request->phone;
-        $langganan->address = $request->address;
-        $langganan->regencies_id = $request->regencies_id;
-        $langganan->day_id = $request->day_id;
-        $langganan->notes = $request->notes;
-        $langganan->range = $request->range;
-        $langganan->range = $request->range;
-        $langganan->rider = $request->rider;
-        $langganan->route = $request->route;
+    // Perbarui atribut Pesanan
+    $langganan->fill($validatedData);
 
-        $flowersData = [];
-        for ($i = 0; $i < count($request->flower_id); $i++) {
-            $flowersData[$request->flower_id[$i]] = ['total' => $request->total[$i]];
+    // Simpan perubahan Pesanan
+    $langganan->save();
+
+    $flowerData = [];
+
+    // Loop melalui data bunga yang diposting
+    foreach ($validatedData['flower_id'] as $index => $flowerId) {
+        $flowerData[$flowerId] = [
+            'total' => $validatedData['total'][$index],
+        ];
+
+        // Periksa apakah atribut 'additional' ada dalam permintaan dan apakah ada nilai di indeks ini
+        if (isset($validatedData['additional']) && isset($validatedData['additional'][$index])) {
+            $flowerData[$flowerId]['additional_flower_id'] = $validatedData['additional'][$index];
+        } else {
+            $flowerData[$flowerId]['additional_flower_id'] = []; // Tetapkan nilai kosong jika tidak ada dalam permintaan
         }
-        $langganan->flowers()->sync($flowersData);
-
-        $langganan->save();
-
-        // Redirect or do something else
-        return redirect('/pesanan')->with('success', 'Data Langganan berhasil diubah !');
     }
+
+    // Synchronize data bunga ke dalam relasi
+    $langganan->flowers()->sync($flowerData);
+
+    // Redirect atau lakukan tindakan lainnya
+    return redirect('/pesanan')->with('success', 'Data Langganan berhasil diperbarui!');
+}
 
     public function destroy($id)
     {

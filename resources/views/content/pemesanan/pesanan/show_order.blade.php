@@ -3,7 +3,6 @@
 @section('title', 'Daftar ' . ucfirst($route))
 
 @section('content')
-
     <x-btn-create route="{{ $route }}"/>
 
     <button id="importButton" class="btn btn-primary">Import Data</button>
@@ -13,6 +12,7 @@
                 <tr>
                     <th class="tab-id">ID</th>
                     <th>Nama</th>
+                    <th>Extra</th>
                     <th>Bunga</th>
                     <th>Jumlah</th>
                     <th>Daerah</th>
@@ -45,6 +45,11 @@
                             </div>
                         </td>
                         <td class="td-nowrap">
+                            @foreach ($d->additionalFlowers as $extra)
+                                <div>{{ $extra->code }}</div>
+                            @endforeach
+                        </td>
+                         <td class="td-nowrap">
                             @foreach ($d->flowers as $flower)
                                 <div>{{ $flower->name }}</div>
                             @endforeach

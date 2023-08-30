@@ -33,14 +33,17 @@ return new class extends Migration
         Schema::create('pesanan_flower', function (Blueprint $table) {
             $table->unsignedBigInteger('pesanan_id');
             $table->unsignedBigInteger('flower_id');
+            $table->unsignedBigInteger('additional_flower_id'); // Ubah nama kolom ini
             $table->integer('total')->unsigned();
             $table->timestamps();
-
+        
             $table->foreign('pesanan_id')->references('id')->on('pesanan')->onDelete('cascade');
             $table->foreign('flower_id')->references('id')->on('flowers')->onDelete('cascade');
-
+            $table->foreign('additional_flower_id')->references('id')->on('flowers')->onDelete('cascade'); // Tambahkan foreign key untuk additional_flower_id
+        
             $table->primary(['pesanan_id', 'flower_id']);
         });
+        
     }
 
     /**
