@@ -20,28 +20,17 @@ class LanggananController extends Controller
 
     public function index(Request $request)
     {
-        $search = $request->query('search');
-
-        if (!empty($search)) {
-            $query = Langganan::where('name', 'like', '%' . $search . '%')
-                                ->orWhere('hari', 'like', '%' . $search . '%')
-                ->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
-        } else {
-            $query = Langganan::orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
-        }
+        $query = Day::whereBetween('id', [1,7])
+                            ->orderBy('id', 'asc')->paginate(10)->withQueryString();
+       
         return view('content.dataCenter.langganan.index', [
             'route' => $this->route,
             'data' => $query,
-            'search' => $search,
+            'search' => '',
             'viewSearch' => "index"
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $flowers = Flower::all();
@@ -63,7 +52,6 @@ class LanggananController extends Controller
             'day_id' => 'required',
             'notes' => 'nullable',
             'range' => 'nullable',
-            'route' => 'nullable',
             'flower_id' => 'required|array',
             'flower_id.*' => 'exists:flowers,id',
             'total' => 'required|array',
@@ -78,7 +66,6 @@ class LanggananController extends Controller
         $langganan->day_id = $validatedData['day_id'];
         $langganan->notes = $validatedData['notes'];
         $langganan->range = $validatedData['range'];
-        $langganan->route = $validatedData['route'];
         $langganan->save();
 
         $flowerData = [];
@@ -90,15 +77,26 @@ class LanggananController extends Controller
         // Redirect or do something else
         return redirect('/langganan')->with('success', 'Data Langganan berhasil ditambahkan !');
     }
-    public function show($id)
+    public function show(Request $request, $slug)
     {
-        $data = Langganan::find($id);
-        $name = $data->name;
-        $flowers = Flower::all();
-        $regencies = Regency::all();
-        $days = Day::whereBetween('id', [1,7])->get();
+        $search = $request->query('search');
 
-        return view('content.dataCenter.langganan.show', compact('data', 'name', 'flowers', 'regencies', 'days'));
+        $query = Day::where('slug', $slug)->firstOrFail()->pesanan();
+
+        if (!empty($search)) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        $query = $query->orderBy('updated_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('content.dataCenter.langganan.show_langganan', [
+            'route' => $this->route,
+            'data' => $query,
+            'search' => $search,
+            'slug' => $slug
+        ]);
     }
 
     public function edit($id)

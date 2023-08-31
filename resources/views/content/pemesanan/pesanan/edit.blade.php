@@ -39,7 +39,7 @@
                                     <select name="additional[]" class="form-select">
                                         <option value="">Masukan Additional </option> <!-- Add this option -->
                                         @foreach ($additional as $f)
-                                            @if (old('additional[]', $data->additionalFlowers[0]->id) == $f->id)
+                                            @if (old('additional[]', $flowerz->id) == $f->id)
                                                 <option value="{{ $f->id }}" selected>{{ $f->name }}</option>
                                             @else
                                                 <option value="{{ $f->id }}">{{ $f->name }}</option>
@@ -50,8 +50,8 @@
                                 <div class="col-6">
                                     <label for="flower_id" class="form-label">Bunga:</label>
                                     <select name="flower_id[]" class="form-select flower-select" required>
+                                        <option value="" disabled>Pilih Bunga</option> <!-- Add this option -->
                                         @foreach ($flowers as $f)
-                                            <option value="" disabled>Pilih Bunga</option> <!-- Add this option -->
                                             @if (old('flower_id[]', $flowerz->id) == $f->id)
                                                 <option value="{{ $f->id }}" selected>{{ $f->name }}</option>
                                             @else

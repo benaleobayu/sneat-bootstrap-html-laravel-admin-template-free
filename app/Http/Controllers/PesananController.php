@@ -61,6 +61,9 @@ class PesananController extends Controller
             'regencies_id' => 'required',
             'day_id' => 'required',
             'notes' => 'nullable',
+            'range' => 'nullable',
+            'rider' => 'nullable',
+            'route' => 'nullable',
             'additional' => 'array',
             'additional.*' => 'exists:flowers,id', // Validasi tambahan harus sesuai dengan tabel flowers
             'flower_id' => 'required|array',
@@ -76,6 +79,9 @@ class PesananController extends Controller
         $langganan->regencies_id = $validatedData['regencies_id'];
         $langganan->day_id = $validatedData['day_id'];
         $langganan->notes = $validatedData['notes'];
+        $langganan->range = $validatedData['range'];
+        $langganan->rider = $validatedData['rider'];
+        $langganan->route = $validatedData['route'];
         $langganan->save();
     
         $flowerData = [];
@@ -146,6 +152,9 @@ class PesananController extends Controller
         'regencies_id' => 'required',
         'day_id' => 'required',
         'notes' => 'nullable',
+        'range' => 'nullable',
+        'rider' => 'nullable',
+        'route' => 'nullable',
         'additional' => 'array',
         'additional.*' => 'exists:flowers,id', // Validasi tambahan harus sesuai dengan tabel flowers
         'flower_id' => 'required|array',
@@ -154,21 +163,16 @@ class PesananController extends Controller
         'total.*' => 'integer|min:0',
     ]);
 
-    // Ambil objek Pesanan yang akan diperbarui
     $langganan = Pesanan::findOrFail($id);
 
-    // Perbarui atribut Pesanan
     $langganan->fill($validatedData);
 
-    // Simpan perubahan Pesanan
     $langganan->save();
 
     $flowerData = [];
 
-    // Loop melalui data bunga yang diposting
     foreach ($validatedData['flower_id'] as $index => $flowerId) {
-        $flowerData[$flowerId] = [
-            'total' => $validatedData['total'][$index],
+        $flowerData[$flowerId] = ['total' => $validatedData['total'][$index],
         ];
 
         // Periksa apakah atribut 'additional' ada dalam permintaan dan apakah ada nilai di indeks ini
@@ -179,10 +183,8 @@ class PesananController extends Controller
         }
     }
 
-    // Synchronize data bunga ke dalam relasi
     $langganan->flowers()->sync($flowerData);
 
-    // Redirect atau lakukan tindakan lainnya
     return redirect('/pesanan')->with('success', 'Data Langganan berhasil diperbarui!');
 }
 

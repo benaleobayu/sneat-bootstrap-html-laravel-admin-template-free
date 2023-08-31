@@ -91,8 +91,8 @@
                     <small class="fw-light fst-italic">*Input dalam km (kilometer)</small>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label for="kurir" class="form-label">Kurir:</label>
-                    <input type="text" name="kurir" id="kurir" class="form-control">
+                    <label for="rider" class="form-label">Kurir:</label>
+                    <input type="text" name="rider" id="rider" class="form-control">
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="route" class="form-label">Route:</label>
