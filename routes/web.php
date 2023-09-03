@@ -11,17 +11,18 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
 
-Route::middleware('auth')->group( function () {
+Route::middleware('auth')->group(function () {
     $controller_path = 'App\Http\Controllers';
-    
+
     Route::get('/', [LanggananController::class, 'index']);
-   
+
     Route::resource('/myprofile', MyprofileController::class);
 
     /* Data Center */
@@ -29,7 +30,7 @@ Route::middleware('auth')->group( function () {
     Route::resource('/langganan', LanggananController::class);
     Route::get('/langganan/list/{slug}', [LanggananController::class, 'show_langganan']);
     Route::resource('/kurir', KurirController::class);
-    
+
     /* Pemesanan */
     Route::resource('/pesanan', PesananController::class);
     Route::get('/pesanan/list/{slug}', [PesananController::class, 'show_order']);
@@ -49,6 +50,10 @@ Route::middleware('auth')->group( function () {
     Route::resource('/bunga', FlowerController::class);
     Route::resource('/daerah', RegencyController::class);
     Route::resource('/hari', DayController::class)->parameters(['hari' => 'slug']);
-    
+
     Route::get('/logout', [LoginController::class, 'logout']);
+});
+
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
 });

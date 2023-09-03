@@ -1,0 +1,5 @@
+---
+deployment:
+ tasks:
+ - export DEPLOYPATH=/home/brad2564/repositories/sneat-kembang
+ - /usr/bin/rsync -Paz * $DEPLOYPATH --delete
