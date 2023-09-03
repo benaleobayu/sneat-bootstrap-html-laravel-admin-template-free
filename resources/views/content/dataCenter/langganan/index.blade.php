@@ -43,7 +43,7 @@
                             @endphp
                             <td class="tab-act-value d-flex flex-nowrap">
                                 @can($view)
-                                    <button class="badge rounded bg-secondary" onclick="window.location='/{{ $route }}/{{ $d->slug }}'" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Lihat Pesanan"><i class='bx bx-show'></i></button>
+                                    <button class="badge rounded bg-secondary" onclick="window.location='/{{ $route }}/list/{{ $d->slug }}'" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Lihat Pesanan"><i class='bx bx-show'></i></button>
                                 @endcan
                                 @can($edit)
                                     <button class="badge rounded bg-primary" onclick="window.location='/pesanan/h/{{ $d->id }}/edit'" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class='bx bx-edit'></i></button>

@@ -27,10 +27,12 @@ Route::middleware('auth')->group( function () {
     /* Data Center */
     Route::resource('/pelanggan', PelangganController::class);
     Route::resource('/langganan', LanggananController::class);
+    Route::get('/langganan/list/{slug}', [LanggananController::class, 'show_langganan']);
     Route::resource('/kurir', KurirController::class);
     
     /* Pemesanan */
     Route::resource('/pesanan', PesananController::class);
+    Route::get('/pesanan/list/{slug}', [PesananController::class, 'show_order']);
     Route::resource('/pembayaran', LanggananController::class);
 
     Route::get('/pesanan/h/create', [DayController::class, 'create'])->name('Create.Hari');

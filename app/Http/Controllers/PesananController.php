@@ -105,25 +105,17 @@ class PesananController extends Controller
         return redirect('/pesanan')->with('success', 'Data Langganan berhasil ditambahkan !');
     }
     
-    public function show(Request $request, $slug)
+    public function show(Request $request, $id)
     {
-        $search = $request->query('search');
+        $data = pesanan::find($id);
+        $name = $data->name;
+        $flowers = Flower::where('additional', 'false')->get();
+        $additional = Flower::where('additional', 'true')->get();
+        $regencies = Regency::all();
+        $days = Day::whereNotBetween('id', [1,7])->get();
 
-        $query = Day::where('slug', $slug)->firstOrFail()->pesanan();
-
-        if (!empty($search)) {
-            $query->where('name', 'like', '%' . $search . '%');
-        }
-
-        $query = $query->orderBy('updated_at', 'desc')
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('content.pemesanan.pesanan.show_order', [
-            'route' => $this->route,
-            'data' => $query,
-            'search' => $search,
-            'slug' => $slug
+        return view('content.pemesanan.pesanan.show', compact('data', 'name', 'flowers', 'additional', 'regencies', 'days'), [
+            'route' => $this->route
         ]);
     }
 
@@ -217,4 +209,27 @@ class PesananController extends Controller
             'slug' => $slug
         ]);
     }
+
+    public function show_order(Request $request, $slug)
+    {
+        $search = $request->query('search');
+
+        $query = Day::where('slug', $slug)->firstOrFail()->pesanan();
+        
+        if (!empty($search)) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        $query = $query->orderBy('updated_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('content.pemesanan.pesanan.show_order', [
+            'route' => $this->route,
+            'data' => $query,
+            'search' => $search,
+            'slug' => $slug
+        ]);
+    }
+
 }

@@ -20,9 +20,9 @@ class LanggananController extends Controller
 
     public function index(Request $request)
     {
-        $query = Day::whereBetween('id', [1,7])
-                            ->orderBy('id', 'asc')->paginate(10)->withQueryString();
-       
+        $query = Day::whereBetween('id', [1, 7])
+            ->orderBy('id', 'asc')->paginate(10)->withQueryString();
+
         return view('content.dataCenter.langganan.index', [
             'route' => $this->route,
             'data' => $query,
@@ -35,9 +35,9 @@ class LanggananController extends Controller
     {
         $flowers = Flower::all();
         $regencies = Regency::all();
-        $days = Day::whereBetween('id', [1,7])->get();
+        $days = Day::whereBetween('id', [1, 7])->get();
 
-        return view('content.dataCenter.langganan.create', compact('flowers', 'regencies', 'days'),[
+        return view('content.dataCenter.langganan.create', compact('flowers', 'regencies', 'days'), [
             'route' => $this->route
         ]);
     }
@@ -77,25 +77,16 @@ class LanggananController extends Controller
         // Redirect or do something else
         return redirect('/langganan')->with('success', 'Data Langganan berhasil ditambahkan !');
     }
-    public function show(Request $request, $slug)
+    public function show(Request $request, $id)
     {
-        $search = $request->query('search');
+        $data = Langganan::find($id);
+        $name = $data->name;
+        $flowers = Flower::all();
+        $regencies = Regency::all();
+        $days = Day::whereBetween('id', [1, 7])->get();
 
-        $query = Day::where('slug', $slug)->firstOrFail()->pesanan();
-
-        if (!empty($search)) {
-            $query->where('name', 'like', '%' . $search . '%');
-        }
-
-        $query = $query->orderBy('updated_at', 'desc')
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('content.dataCenter.langganan.show_langganan', [
-            'route' => $this->route,
-            'data' => $query,
-            'search' => $search,
-            'slug' => $slug
+        return view('content.dataCenter.langganan.show', compact('data', 'name', 'flowers', 'regencies', 'days'), [
+            'route' => $this->route
         ]);
     }
 
@@ -105,9 +96,9 @@ class LanggananController extends Controller
         $name = $data->name;
         $flowers = Flower::all();
         $regencies = Regency::all();
-        $days = Day::whereBetween('id', [1,7])->get();
+        $days = Day::whereBetween('id', [1, 7])->get();
 
-        return view('content.dataCenter.langganan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'),[
+        return view('content.dataCenter.langganan.edit', compact('data', 'name', 'flowers', 'regencies', 'days'), [
             'route' => $this->route
         ]);
     }
@@ -156,25 +147,47 @@ class LanggananController extends Controller
     }
 
     public function importDataByDay(Request $request)
-{
-    // Mendapatkan hari yang dipilih oleh pengguna dari permintaan
-    $hari = $request->input('hari');
+    {
+        // Mendapatkan hari yang dipilih oleh pengguna dari permintaan
+        $hari = $request->input('hari');
 
-    // Mendapatkan data langganan berdasarkan hari yang dipilih
-    $langgananRecords = Langganan::where('hari', $hari)->get();
+        // Mendapatkan data langganan berdasarkan hari yang dipilih
+        $langgananRecords = Langganan::where('hari', $hari)->get();
 
-    // Melakukan loop pada data yang diambil dan membuat catatan pesanan
-    foreach ($langgananRecords as $langganan) {
-        pesanan::create([
-            'name' => $langganan->name,
-            'address' => $langganan->address,
-            'phone' => $langganan->phone,
-            'notes' => $langganan->notes,
-            // Tambahkan kolom-kolom lain sesuai kebutuhan Anda
-        ]);
+        // Melakukan loop pada data yang diambil dan membuat catatan pesanan
+        foreach ($langgananRecords as $langganan) {
+            pesanan::create([
+                'name' => $langganan->name,
+                'address' => $langganan->address,
+                'phone' => $langganan->phone,
+                'notes' => $langganan->notes,
+                // Tambahkan kolom-kolom lain sesuai kebutuhan Anda
+            ]);
+        }
+
+        // Opsional: Anda dapat menambahkan pesan keberhasilan atau mengembalikan respons
+        return redirect()->route('pesanan.index')->with('success', 'Data berhasil diimpor.');
     }
 
-    // Opsional: Anda dapat menambahkan pesan keberhasilan atau mengembalikan respons
-    return redirect()->route('pesanan.index')->with('success', 'Data berhasil diimpor.');
-}
+    public function show_langganan(Request $request, $slug)
+    {
+        $search = $request->query('search');
+
+        $query = Day::where('slug', $slug)->firstOrFail()->langganan();
+
+        if (!empty($search)) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        $query = $query->orderBy('updated_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('content.dataCenter.langganan.show_langganan', [
+            'route' => $this->route,
+            'data' => $query,
+            'search' => $search,
+            'slug' => $slug
+        ]);
+    }
 }

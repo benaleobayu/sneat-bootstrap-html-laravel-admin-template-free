@@ -89,7 +89,7 @@
 
             <div class="mb-3">
                 <label for="notes" class="form-label">Catatan:</label>
-                <textarea name="notes" id="notes" class="form-control">{{ old('notes', $data->notes) }}</textarea>
+                <textarea name="notes" id="summernote" class="form-control">{{ old('notes', $data->notes) }}</textarea>
             </div> 
             
             <div class="col-md-4 mb-3">

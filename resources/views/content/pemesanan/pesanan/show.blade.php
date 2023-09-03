@@ -4,6 +4,8 @@
 
 @section('content')
     <div class="container">
+        <div class="card">
+            <div class="card-body">
         <div class="row mb-3">
             <div class="col">
                 <label for="name" class="form-label">Name:</label>
@@ -78,9 +80,11 @@
 
         <div class="mb-3">
             <label for="notes" class="form-label">Catatan:</label>
-            <textarea name="notes" id="notes" class="form-control" disabled readonly>{{ $data->notes }}</textarea>
+            <p class="border rounded p-2" style="background: #eceef1">{{ $data->notes }}</p>
         </div>
-
+        <x-btn-back/>
+    </div>
+    </div>
     </div>
 
 
