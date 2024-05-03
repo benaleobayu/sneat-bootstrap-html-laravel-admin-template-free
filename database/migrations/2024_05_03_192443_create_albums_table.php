@@ -7,13 +7,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('songs', function (Blueprint $table) {
+        Schema::create('albums', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('photo');
-            $table->string('genre')->nullable();
-            $table->string('album')->nullable();
-            $table->string('singer');
+            $table->string('title')->nullable();
+            $table->string('subtitle')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
         });
@@ -21,6 +19,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('songs');
+        Schema::dropIfExists('albums');
     }
 };

@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
 use App\Models\Song;
+use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
-  public function index()
+  public function index(): \Illuminate\Http\JsonResponse
   {
-    $data = Song::all();
+    $data = Song::orderBy('id', 'asc')->get();
     return response()->json([
       'status' => 'success',
       'message' => 'Success retrieve all songs',

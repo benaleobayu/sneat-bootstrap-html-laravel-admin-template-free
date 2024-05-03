@@ -19,8 +19,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('songs', [\App\Http\Controllers\SongController::class, 'index']);
-Route::get('songs/{id}', [\App\Http\Controllers\SongController::class, 'show']);
-Route::post('songs', [\App\Http\Controllers\SongController::class, 'store']);
-Route::put('songs/{id}', [\App\Http\Controllers\SongController::class, 'update']);
-Route::delete('songs/{id}', [\App\Http\Controllers\SongController::class, 'destroy']);
+Route::get('songs', [\App\Http\Controllers\Api\SongController::class, 'index']);
+Route::get('songs/{id}', [\App\Http\Controllers\Api\SongController::class, 'show']);
+Route::post('songs', [\App\Http\Controllers\Api\SongController::class, 'store']);
+Route::put('songs/{id}', [\App\Http\Controllers\Api\SongController::class, 'update']);
+Route::delete('songs/{id}', [\App\Http\Controllers\Api\SongController::class, 'destroy']);
+
+Route::get('albums', [\App\Http\Controllers\Api\AlbumController::class, 'index']);
+Route::get('albums/{id}', [\App\Http\Controllers\Api\AlbumController::class, 'show']);
+Route::post('albums', [\App\Http\Controllers\Api\AlbumController::class, 'store']);
+Route::put('albums/{id}', [\App\Http\Controllers\Api\AlbumController::class, 'update']);
+Route::delete('albums/{id}', [\App\Http\Controllers\Api\AlbumController::class, 'destroy']);
+
